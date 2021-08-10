@@ -4,7 +4,7 @@
 
 | Eu como ...<br />[PERSONA]   |      ... quero/desejo ...<br />[O QUE]      |  ... para ....<br />[POR QUE] |
 |----------|:-------------:|------:|
-| Professor | Tenho como objetivo verificar os alunos matriculados em minhas turmas | para planejas as dinâmicas das aulas |
+| Professor | Verificar os alunos matriculados em minhas turmas | Planejar as dinâmicas das aulas |
 | Análista Financeiro | Emitir boletos referentes à matricula | Envia-los aos alunos |
 | Aluno | Me matricular nas aulas que preciso | Conseguir meus créditos e formar |
-| Secretário | Quero gerar o currículos semestrais | Para saber as informações referentes aos alunos, professores e disciplinas |
+| Secretário | Gerar o currículos semestrais | Saber as informações referentes aos alunos, professores e disciplinas |
