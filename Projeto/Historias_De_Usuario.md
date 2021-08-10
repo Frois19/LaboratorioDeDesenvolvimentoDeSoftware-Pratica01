@@ -4,7 +4,7 @@
 
 | Eu como ...<br />[PERSONA]   |      ... quero/desejo ...<br />[O QUE]      |  ... para ....<br />[POR QUE] |
 |----------|:-------------:|------:|
-| Professor | Verificar os alunos matriculados em minhas turmas | Planejar as dinâmicas das aulas |
-| Análista Financeiro | Emitir boletos referentes à matricula | Envia-los aos alunos |
-| Aluno | Gerir minhas matriculas | Selecionar minha grade currícular |
-| Secretário | Gerar o currículos semestrais | Saber as informações referentes aos alunos, professores e disciplinas |
+| <center>Professor</center> | <center>Verificar os alunos matriculados em minhas turmas</center> | <center>Planejar as dinâmicas das aulas</center> |
+| <center>Análista Financeiro</center> | <center>Emitir boletos referentes à matricula</center> | <center>Envia-los aos alunos</center> |
+| <center>Aluno</center> | <center>Gerir minhas matriculas</center> | <center>Selecionar minha grade currícular</center> |
+| <center>Secretário</center> | <center>Gerar o currículos semestrais</center> | <center>Saber as informações referentes aos alunos, professores e disciplinas</center> |
