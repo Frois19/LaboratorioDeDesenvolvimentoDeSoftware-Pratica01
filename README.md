@@ -50,7 +50,7 @@ Ao final da última sprint (Sprint 04), os alunos deverão apresentar o protóti
 
 **Lab01S01:** Modelo de Análise: Diagrama de Caso de Uso referente ao sistema + Descrição em Histórias de Usuário em Markdown (.md), no README do Repositório, com arquivo enviado no Canvas. *(3 pontos)*
 
-**Lab01S02:** TBD;
+**Lab01S02:** Projeto Estrutural: Diagrama de Classes referente ao sistema + Criação do Projeto Java, contendo: classes, atributos e métodos modelados *(4 pontos)*
 
 **Lab01S03:** TBD;
 
