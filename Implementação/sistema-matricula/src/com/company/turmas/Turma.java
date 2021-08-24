@@ -10,11 +10,16 @@ public class Turma {
     private Disciplina disciplina;
     private ArrayList<Aluno> alunos;
     private Professor professor;
+    private int ano;
+    private TipoTurno turno;
+    private TipoSemestre semestre;
 
-    public Turma(Disciplina disciplina, ArrayList<Aluno> alunos, Professor professor) {
+    public Turma(Disciplina disciplina, ArrayList<Aluno> alunos, Professor professor, int ano, TipoTurno turno) {
         this.disciplina = disciplina;
         this.alunos = alunos;
         this.professor = professor;
+        this.ano = ano;
+        this.turno = turno;
     }
 
     public Disciplina getDisciplina() {
@@ -39,6 +44,30 @@ public class Turma {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public TipoTurno getTurno() {
+        return turno;
+    }
+
+    public void setTurno(TipoTurno turno) {
+        this.turno = turno;
+    }
+
+    public TipoSemestre getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(TipoSemestre semestre) {
+        this.semestre = semestre;
     }
 
     public void atualizarDados(){
