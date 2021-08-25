@@ -1,4 +1,4 @@
-package com.company.manipulationfile;
+package com.company.file;
 
 import com.company.classroom.Classroom;
 import com.company.matter.Matter;

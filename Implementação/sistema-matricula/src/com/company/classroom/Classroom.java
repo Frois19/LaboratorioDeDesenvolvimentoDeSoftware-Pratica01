@@ -8,7 +8,6 @@ import com.company.user.type.Teacher;
 import java.util.ArrayList;
 
 public class Classroom {
-    protected Teacher teacher;
     protected Matter matter;
     protected ArrayList<Student> students = new ArrayList();
     protected String id;
@@ -16,21 +15,12 @@ public class Classroom {
     protected SemesterType semester;
     protected ShiftType shift;
 
-    public Classroom(Teacher teacher, Matter matter, String id, String name, SemesterType semester, ShiftType shift) {
-        this.teacher = teacher;
+    public Classroom(Matter matter, String id, String name, SemesterType semester, ShiftType shift) {
         this.matter = matter;
         this.id = id;
         this.name = name;
         this.semester = semester;
         this.shift = shift;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
     }
 
     public Matter getMatter() {
@@ -159,7 +149,6 @@ public class Classroom {
     public String textFile() {
         return getName() + ";" +
                 getId() + ";" +
-                getTeacher().getRegistry()+ ";" +
                 getMatter().getId()+ ";" +
                 getTextSemester() + ";" +
                 getTextShift() +
@@ -171,7 +160,6 @@ public class Classroom {
         return "\nClassroom Information" +
                 "\n\t-Id: " + getId() +
                 "\n\t- Name: " + getName() +
-                "\n\t- Teacher: " + getTeacher().getName()+
                 "\n\t- Matter: " + getMatter().getName() +
                 "\n\t- Semester: " + getTextSemester() +
                 "\n\t- Shift: " + getTextShift() +
