@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ManipulationFile {
+
     //Write in files
     public void writeMatter(Matter matter) throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter("matter.txt"));
