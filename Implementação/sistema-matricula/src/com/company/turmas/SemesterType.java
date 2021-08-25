@@ -1,6 +1,6 @@
 package com.company.turmas;
 
-public enum TipoSemestre {
+public enum SemesterType {
     PRIMEIRO,
     SEGUNDO
 }

@@ -1,6 +1,6 @@
 package com.company.turmas;
 
-public enum TipoTurno {
+public enum ShiftType {
     DIURNO,
     NOTURNO
 }
