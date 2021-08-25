@@ -1,6 +1,7 @@
-package com.company.turmas;
+package com.company.classroom;
 
 import com.company.matter.Matter;
+import com.company.matter.MatterType;
 import com.company.user.type.Student;
 import com.company.user.type.Teacher;
 
@@ -12,16 +13,14 @@ public class Classroom {
     protected ArrayList<Student> students = new ArrayList();
     protected String id;
     protected String name;
-    protected String year;
     protected SemesterType semester;
     protected ShiftType shift;
 
-    public Classroom(Teacher teacher, Matter matter, String id, String name, String year, SemesterType semester, ShiftType shift) {
+    public Classroom(Teacher teacher, Matter matter, String id, String name, SemesterType semester, ShiftType shift) {
         this.teacher = teacher;
         this.matter = matter;
         this.id = id;
         this.name = name;
-        this.year = year;
         this.semester = semester;
         this.shift = shift;
     }
@@ -58,28 +57,54 @@ public class Classroom {
         this.name = name;
     }
 
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
     public SemesterType getSemester() {
         return semester;
+    }
+
+    public String getTextSemester() {
+        if(getSemester() == SemesterType.FIRST){
+            return "FIRST";
+        } else {
+            //SemesterType.SECOND
+            return "SECOND";
+        }
     }
 
     public void setSemester(SemesterType semester) {
         this.semester = semester;
     }
 
+    public void setTextSemester(String semester) {
+        if(semester.equals("FIRST")){
+            this.semester=SemesterType.FIRST;
+        } else {
+            this.semester=SemesterType.SECOND;
+        }
+    }
+
     public ShiftType getShift() {
         return shift;
     }
 
+    public String getTextShift() {
+        if(getShift() == ShiftType.DAYTIME){
+            return "DAYTIME";
+        } else {
+            //ShiftType.NIGHT
+            return "NIGHT";
+        }
+    }
+
     public void setShift(ShiftType shift) {
         this.shift = shift;
+    }
+
+    public void setTextShift(String shift) {
+        if(shift.equals("DAYTIME")){
+            this.shift=ShiftType.DAYTIME;
+        } else {
+            this.shift=ShiftType.NIGHT;
+        }
     }
 
     public void addStudent(Student student){
@@ -92,6 +117,20 @@ public class Classroom {
             listStudents.concat("\n\t\t- " + s.getName());
         }
         return listStudents;
+    }
+
+    public String listStudentsFile(){
+        String listMatter = "";
+        int position = 0;
+        for(Student s: students){
+            if (position<students.size()-1) {
+                listMatter.concat(s.getRegistry() + ",");
+            } else {
+                listMatter.concat(s.getRegistry() + ";");
+            }
+            position++;
+        }
+        return listMatter;
     }
 
     public int searchStudent(String registry){
@@ -117,4 +156,25 @@ public class Classroom {
         }
     }
 
+    public String textFile() {
+        return getName() + ";" +
+                getId() + ";" +
+                getTeacher().getRegistry()+ ";" +
+                getMatter().getId()+ ";" +
+                getTextSemester() + ";" +
+                getTextShift() +
+                listStudentsFile() + "\n";
+    }
+
+    @Override
+    public String toString() {
+        return "\nClassroom Information" +
+                "\n\t-Id: " + getId() +
+                "\n\t- Name: " + getName() +
+                "\n\t- Teacher: " + getTeacher().getName()+
+                "\n\t- Matter: " + getMatter().getName() +
+                "\n\t- Semester: " + getTextSemester() +
+                "\n\t- Shift: " + getTextShift() +
+                listStudents();
+    }
 }

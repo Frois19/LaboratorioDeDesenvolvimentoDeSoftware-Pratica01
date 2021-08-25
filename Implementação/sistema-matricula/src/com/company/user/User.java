@@ -52,8 +52,25 @@ public abstract class User {
         return status;
     }
 
+    public String getTextStatus() {
+        if(getStatus()==StatusUser.ACTIVE){
+            return "ACTIVE";
+        }else{
+            //StatusUser.INACTIVE
+            return "INACTIVE";
+        }
+    }
+
     public void setStatus(StatusUser status) {
         this.status = status;
+    }
+
+    public void setTextStatus(String status) {
+        if(status.equals("ACTIVE")){
+            this.status=StatusUser.ACTIVE;
+        }else{
+            this.status=StatusUser.INACTIVE;
+        }
     }
 
     public boolean changePassword(String password01, String password02) {
@@ -73,6 +90,14 @@ public abstract class User {
 
     public void activeUser() {
         setStatus(StatusUser.ACTIVE);
+    }
+
+    public String textFile() {
+        return getName() + ";" +
+                getRegistry() + ";" +
+                getEmail() + ";" +
+                getPassword() + ";" +
+                getTextStatus() + "\n";
     }
 
     @Override

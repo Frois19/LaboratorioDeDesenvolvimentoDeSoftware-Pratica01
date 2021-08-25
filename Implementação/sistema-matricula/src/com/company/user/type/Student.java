@@ -12,14 +12,35 @@ public class Student extends User {
         super(name, email, password, registry);
     }
 
-    public void addMatter(Matter matter){
-        matters.add(matter);
+    public boolean addMatter(Matter matter){
+        if (matters.size()<4) {
+            matters.add(matter);
+            System.out.println("Added matter.");
+            return true;
+        } else {
+            System.out.println("Matter not added.");
+            return false;
+        }
     }
 
     public String listMatters(){
         String listMatter = "\n\t- Matters:";
         for(Matter m: matters){
             listMatter.concat("\n\t\t- " + m.getName());
+        }
+        return listMatter;
+    }
+
+    public String listMattersFile(){
+        String listMatter = "";
+        int position = 0;
+        for(Matter m: matters){
+            if (position<matters.size()-1) {
+                listMatter.concat(m.getId() + ",");
+            } else {
+                listMatter.concat(m.getId() + ";");
+            }
+            position++;
         }
         return listMatter;
     }
@@ -45,6 +66,15 @@ public class Student extends User {
             System.out.println("Matter not found.");
             return false;
         }
+    }
+
+    public String textFile() {
+        return getName() + ";" +
+                getRegistry() + ";" +
+                getEmail() + ";" +
+                getPassword() + ";" +
+                getTextStatus() + ";" +
+                listMattersFile() + "\n";
     }
 
     @Override

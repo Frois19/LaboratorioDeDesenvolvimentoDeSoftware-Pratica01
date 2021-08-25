@@ -41,7 +41,40 @@ public class Matter {
         return type;
     }
 
+    public String getTextType() {
+        if(getType()==MatterType.MANDATORY){
+            return "MANDATORY";
+        } else {
+            //MatterType.OPTIONAL
+            return "OPTIONAL";
+        }
+    }
+
     public void setType(MatterType type) {
         this.type = type;
+    }
+
+    public void setTextType(String type) {
+        if(type.equals("MANDATORY")){
+            this.type=MatterType.MANDATORY;
+        } else {
+            this.type=MatterType.OPTIONAL;
+        }
+    }
+
+    public String textFile() {
+        return getName() + ";" +
+                getId() + ";" +
+                getCredits() + ";" +
+                getTextType() + ";" + "\n";
+    }
+
+    @Override
+    public String toString() {
+        return "\nMatter Information:" +
+                "\n\t- Name: " + getName() +
+                "\n\t- Id: " + getId() +
+                "\n\t- Credits:" + getCredits() +
+                "\n\t- Type: " + getTextType();
     }
 }

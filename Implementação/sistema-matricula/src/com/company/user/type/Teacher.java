@@ -1,6 +1,7 @@
 package com.company.user.type;
 
-import com.company.turmas.Classroom;
+import com.company.classroom.Classroom;
+import com.company.matter.Matter;
 import com.company.user.User;
 
 import java.util.ArrayList;
@@ -23,6 +24,20 @@ public class Teacher extends User {
             listClassroom.concat("\n\t\t- " + c.getName());
         }
         return listClassroom;
+    }
+
+    public String listClassroomsFile(){
+        String listMatter = "";
+        int position = 0;
+        for(Classroom c: classrooms){
+            if (position<classrooms.size()-1) {
+                listMatter.concat(c.getId() + ",");
+            } else {
+                listMatter.concat(c.getId() + ";");
+            }
+            position++;
+        }
+        return listMatter;
     }
 
     public int searchClassroom(String id){
@@ -57,13 +72,22 @@ public class Teacher extends User {
         }
     }
 
+    public String textFile() {
+        return getName() + ";" +
+                getRegistry() + ";" +
+                getEmail() + ";" +
+                getPassword() + ";" +
+                getTextStatus() + ";" +
+                listClassroomsFile() + "\n";
+    }
+
     @Override
     public String toString() {
         return "\nTeacher Information:" +
                 "\n\t- Name: " + getName() +
                 "\n\t- Registry: " + getRegistry() +
                 "\n\t- E-mail:" + getEmail() +
-                "\n\t- Status: " + getStatus() +
+                "\n\t- Status: " + getTextStatus() +
                 listClassrooms();
     }
 }
