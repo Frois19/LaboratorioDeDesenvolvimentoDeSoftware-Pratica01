@@ -73,8 +73,8 @@ public class Teacher extends User {
     }
 
     public String textFile() {
-        return getName() + ";" +
-                getRegistry() + ";" +
+        return getRegistry() + ";" +
+                getName() + ";" +
                 getEmail() + ";" +
                 getPassword() + ";" +
                 getTextStatus() + ";" +

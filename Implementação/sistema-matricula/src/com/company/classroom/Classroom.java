@@ -147,8 +147,8 @@ public class Classroom {
     }
 
     public String textFile() {
-        return getName() + ";" +
-                getId() + ";" +
+        return getId() + ";" +
+                getName() + ";" +
                 getMatter().getId()+ ";" +
                 getTextSemester() + ";" +
                 getTextShift() +

@@ -59,4 +59,6 @@ public class ManipulationFile {
     }
 
     //Read files and fill lists
+
+    //Delete files and fill lists
 }
