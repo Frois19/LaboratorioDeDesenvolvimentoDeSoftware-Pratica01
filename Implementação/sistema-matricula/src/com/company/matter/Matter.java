@@ -13,6 +13,13 @@ public class Matter {
         this.type = type;
     }
 
+    public Matter(String name, String id, String credits, String type) {
+        this.name = name;
+        this.id = id;
+        this.credits = Integer.parseInt(credits);
+        setTextType(type);
+    }
+
     public String getName() {
         return name;
     }
