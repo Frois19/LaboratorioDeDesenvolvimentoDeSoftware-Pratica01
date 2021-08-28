@@ -23,6 +23,14 @@ public class Classroom {
         this.shift = shift;
     }
 
+    public Classroom(Matter matter, String id, String name, String semester, String shift) {
+        this.matter = matter;
+        this.id = id;
+        this.name = name;
+        setTextSemester(semester);
+        setTextShift(shift);
+    }
+
     public Matter getMatter() {
         return matter;
     }
@@ -151,7 +159,7 @@ public class Classroom {
                 getName() + ";" +
                 getMatter().getId()+ ";" +
                 getTextSemester() + ";" +
-                getTextShift() +
+                getTextShift() + ";" +
                 listStudentsFile() + "\n";
     }
 

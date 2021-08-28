@@ -12,6 +12,11 @@ public class Student extends User {
         super(name, email, password, registry);
     }
 
+    public Student(String name, String email, String password, String registry, String status) {
+        super(name, email, password, registry);
+        setTextStatus(status);
+    }
+
     public boolean addMatter(Matter matter){
         if (matters.size()<4) {
             matters.add(matter);

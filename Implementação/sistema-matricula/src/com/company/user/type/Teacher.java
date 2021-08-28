@@ -14,6 +14,11 @@ public class Teacher extends User {
         super(name, email, password, registry);
     }
 
+    public Teacher(String name, String email, String password, String registry, String status) {
+        super(name, email, password, registry);
+        setTextStatus(status);
+    }
+
     public void addClassroom(Classroom classroom){
         classrooms.add(classroom);
     }
