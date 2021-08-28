@@ -1,10 +1,7 @@
 package com.company.file;
 
 import com.company.classroom.Classroom;
-import com.company.classroom.SemesterType;
-import com.company.classroom.ShiftType;
 import com.company.matter.Matter;
-import com.company.matter.MatterType;
 import com.company.user.type.Student;
 import com.company.user.type.Teacher;
 
@@ -38,23 +35,23 @@ public class ManipulationFile {
         buffWrite.close();
     }
 
-    //Adding to lists
-    public void addListMatter(Matter matter, ArrayList<Matter> matters) throws IOException {
+    //Adding to lists and write in files
+    public void addMatter(Matter matter, ArrayList<Matter> matters) throws IOException {
         writeMatter(matter);
         matters.add(matter);
     }
 
-    public void addListStudent(Student student, ArrayList<Student> students) throws IOException {
+    public void addStudent(Student student, ArrayList<Student> students) throws IOException {
         writeStudent(student);
         students.add(student);
     }
 
-    public void addListClassroom(Classroom classroom, ArrayList<Classroom> classrooms) throws IOException {
+    public void addClassroom(Classroom classroom, ArrayList<Classroom> classrooms) throws IOException {
         writeClassroom(classroom);
         classrooms.add(classroom);
     }
 
-    public void addListTeacher(Teacher teacher, ArrayList<Teacher> teachers) throws IOException {
+    public void addTeacher(Teacher teacher, ArrayList<Teacher> teachers) throws IOException {
         writeTeacher(teacher);
         teachers.add(teacher);
     }
@@ -321,5 +318,103 @@ public class ManipulationFile {
         buffRead.close();
     }
 
-    //Delete files and fill lists
+    //Delete in files
+    public boolean deleteMatter(String id, ArrayList<Matter> matters) throws IOException {
+        int index;
+        int cont = 0;
+        //delete file
+        File file = new File("matter.txt");
+        if (file.exists()){
+            file.delete();
+        }
+        index = searchMatter(id, matters);
+        if (index != -1){
+            for (Matter m: matters){
+                if (cont != index){
+                    writeMatter(m);
+                } else {
+                    System.out.println(m.toString() + "\nMatter was deleted.");
+                }
+            }
+            return true;
+        } else {
+            System.out.println("Matter not found.");
+            return false;
+        }
+    }
+
+    public boolean deleteStudent(String registry, ArrayList<Student> students) throws IOException {
+        int index;
+        int cont = 0;
+        //delete file
+        File file = new File("student.txt");
+        if (file.exists()){
+            file.delete();
+        }
+        index = searchStudent(registry, students);
+        if (index != -1){
+            for (Student s: students){
+                if (cont != index){
+                    writeStudent(s);
+                } else {
+                    System.out.println(s.toString() + "\nStudent was deleted.");
+                }
+            }
+            return true;
+        } else {
+            System.out.println("Student not found.");
+            return false;
+        }
+    }
+
+    public boolean deleteClassroom(String id, ArrayList<Classroom> classrooms) throws IOException {
+        int index;
+        int cont = 0;
+        //delete file
+        File file = new File("classroom.txt");
+        if (file.exists()){
+            file.delete();
+        }
+        index = searchClassroom(id, classrooms);
+        if (index != -1){
+            for (Classroom c: classrooms){
+                if (cont != index){
+                    writeClassroom(c);
+                } else {
+                    System.out.println(c.toString() + "\nClassroom was deleted.");
+                }
+            }
+            return true;
+        } else {
+            System.out.println("Classroom not found.");
+            return false;
+        }
+    }
+
+    public boolean deleteTeacher(String registry, ArrayList<Teacher> teachers) throws IOException {
+        int index;
+        int cont = 0;
+        //delete file
+        File file = new File("teacher.txt");
+        if (file.exists()){
+            file.delete();
+        }
+        index = searchTeacher(registry, teachers);
+        if (index != -1){
+            for (Teacher t: teachers){
+                if (cont != index){
+                    writeTeacher(t);
+                } else {
+                    System.out.println(t.toString() + "\nTeacher was deleted.");
+                }
+            }
+            return true;
+        } else {
+            System.out.println("Teacher not found.");
+            return false;
+        }
+    }
+
+
+
 }
