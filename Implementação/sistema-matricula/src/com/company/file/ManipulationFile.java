@@ -318,105 +318,180 @@ public class ManipulationFile {
         buffRead.close();
     }
 
+    //Delete full file
+    public boolean deleteFile (String path){
+        File file = new File(path);
+        if (file.exists()){
+            file.delete();
+            return true;
+        }
+        return false;
+    }
+
     //Delete in files
     public boolean deleteMatter(String id, ArrayList<Matter> matters) throws IOException {
         int index;
         int cont = 0;
         //delete file
-        File file = new File("matter.txt");
-        if (file.exists()){
-            file.delete();
-        }
-        index = searchMatter(id, matters);
-        if (index != -1){
-            for (Matter m: matters){
-                if (cont != index){
-                    writeMatter(m);
-                } else {
-                    System.out.println(m.toString() + "\nMatter was deleted.");
+        if(deleteFile("matter.txt")){
+            index = searchMatter(id, matters);
+            if (index != -1) {
+                for (Matter m : matters) {
+                    if (cont != index) {
+                        writeMatter(m);
+                    } else {
+                        System.out.println(m.toString() + "\nMatter was deleted.");
+                    }
                 }
+                return true;
+            }else {
+                System.out.println("Matter not found.");
+                return false;
             }
-            return true;
-        } else {
-            System.out.println("Matter not found.");
-            return false;
         }
+        System.out.println("File not found.");
+        return false;
     }
 
     public boolean deleteStudent(String registry, ArrayList<Student> students) throws IOException {
         int index;
         int cont = 0;
         //delete file
-        File file = new File("student.txt");
-        if (file.exists()){
-            file.delete();
-        }
-        index = searchStudent(registry, students);
-        if (index != -1){
-            for (Student s: students){
-                if (cont != index){
-                    writeStudent(s);
-                } else {
-                    System.out.println(s.toString() + "\nStudent was deleted.");
+        if(deleteFile("student.txt")) {
+            index = searchStudent(registry, students);
+            if (index != -1) {
+                for (Student s : students) {
+                    if (cont != index) {
+                        writeStudent(s);
+                    } else {
+                        System.out.println(s.toString() + "\nStudent was deleted.");
+                    }
                 }
+                return true;
+            } else {
+                System.out.println("Student not found.");
+                return false;
             }
-            return true;
-        } else {
-            System.out.println("Student not found.");
-            return false;
         }
+        System.out.println("File not found.");
+        return false;
     }
 
     public boolean deleteClassroom(String id, ArrayList<Classroom> classrooms) throws IOException {
         int index;
         int cont = 0;
         //delete file
-        File file = new File("classroom.txt");
-        if (file.exists()){
-            file.delete();
-        }
-        index = searchClassroom(id, classrooms);
-        if (index != -1){
-            for (Classroom c: classrooms){
-                if (cont != index){
-                    writeClassroom(c);
-                } else {
-                    System.out.println(c.toString() + "\nClassroom was deleted.");
+        if(deleteFile("classroom.txt")) {
+            index = searchClassroom(id, classrooms);
+            if (index != -1) {
+                for (Classroom c : classrooms) {
+                    if (cont != index) {
+                        writeClassroom(c);
+                    } else {
+                        System.out.println(c.toString() + "\nClassroom was deleted.");
+                    }
                 }
+                return true;
+            } else {
+                System.out.println("Classroom not found.");
+                return false;
             }
-            return true;
-        } else {
-            System.out.println("Classroom not found.");
-            return false;
         }
+        System.out.println("File not found.");
+        return false;
     }
 
     public boolean deleteTeacher(String registry, ArrayList<Teacher> teachers) throws IOException {
         int index;
         int cont = 0;
         //delete file
-        File file = new File("teacher.txt");
-        if (file.exists()){
-            file.delete();
-        }
-        index = searchTeacher(registry, teachers);
-        if (index != -1){
-            for (Teacher t: teachers){
-                if (cont != index){
-                    writeTeacher(t);
-                } else {
-                    System.out.println(t.toString() + "\nTeacher was deleted.");
+        if(deleteFile("teacher.txt")) {
+            index = searchTeacher(registry, teachers);
+            if (index != -1) {
+                for (Teacher t : teachers) {
+                    if (cont != index) {
+                        writeTeacher(t);
+                    } else {
+                        System.out.println(t.toString() + "\nTeacher was deleted.");
+                    }
                 }
+                return true;
+            } else {
+                System.out.println("Teacher not found.");
+                return false;
             }
-            return true;
-        } else {
-            System.out.println("Teacher not found.");
-            return false;
         }
+        System.out.println("File not found.");
+        return false;
     }
 
     //Edit file
+    public boolean editMatter(String id, Matter matter, ArrayList<Matter> matters) throws IOException {
+        int index = searchMatter(id, matters);
+        if (index == -1){
+            System.out.println("Matter not found.");
+            return false;
+        }else {
+            matters.remove(index);
+            matters.add(matter);
+            if(deleteMatter(id, matters)){
+                writeMatter(matter);
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
 
+    public boolean editStudent(String registry, Student student, ArrayList<Student> students) throws IOException {
+        int index = searchStudent(registry, students);
+        if (index == -1){
+            System.out.println("Student not found.");
+            return false;
+        }else {
+            students.remove(index);
+            students.add(student);
+            if(deleteStudent(registry, students)){
+                writeStudent(student);
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
 
+    public boolean editClassroom(String id, Classroom classroom, ArrayList<Classroom> classrooms) throws IOException {
+        int index = searchClassroom(id, classrooms);
+        if (index == -1){
+            System.out.println("Classroom not found.");
+            return false;
+        }else {
+            classrooms.remove(index);
+            classrooms.add(classroom);
+            if(deleteClassroom(id, classrooms)){
+                writeClassroom(classroom);
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
 
+    public boolean editTeacher(String registry, Teacher teacher, ArrayList<Teacher> teachers) throws IOException {
+        int index = searchTeacher(registry, teachers);
+        if (index == -1){
+            System.out.println("Teacher not found.");
+            return false;
+        }else {
+            teachers.remove(index);
+            teachers.add(teacher);
+            if(deleteTeacher(registry, teachers)){
+                writeTeacher(teacher);
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+    
 }
