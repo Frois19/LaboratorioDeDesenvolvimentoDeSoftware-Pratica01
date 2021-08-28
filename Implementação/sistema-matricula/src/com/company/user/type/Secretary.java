@@ -4,9 +4,9 @@ import com.company.user.User;
 
 import java.util.Date;
 
-public class Secretaria extends User {
+public class Secretary extends User {
 
-    public Secretaria(String name, String email, String password, String registry) {
+    public Secretary(String name, String email, String password, String registry) {
         super(name, email, password, registry);
     }
 
