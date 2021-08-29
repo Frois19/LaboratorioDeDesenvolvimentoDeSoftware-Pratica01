@@ -98,15 +98,15 @@ public class ManipulationMenu {
 
         System.out.println("\n\nStart read files");
         file.readMatterFile(matters);
-        System.out.println("1");
+        //System.out.println("1");
         //file.readStudentFile(matters,students);
-        System.out.println("2");
+        //System.out.println("2");
         file.readClassroomFile(matters, students, classrooms);
-        System.out.println("3");
+        //System.out.println("3");
         //file.readTeacherFile(classrooms, teachers);
-        System.out.println("4");
+        //System.out.println("4");
         file.readSecretaryFile(secretaries);
-        System.out.println("5");
+        //System.out.println("5");
         System.out.println("Finish read files");
 
         System.out.println("\n\nPrint array after read");

@@ -122,7 +122,7 @@ public class Classroom {
         String listStudents = "";
         int position = 0;
         for(Student s: students){
-            listStudents=listStudents.concat(s.getRegistry() + ",");
+            listStudents=listStudents.concat(s.getRegistry() + ",#");
             position++;
         }
         listStudents=listStudents.concat(";");
@@ -153,11 +153,11 @@ public class Classroom {
     }
 
     public String textFile() {
-        return getId() + ";" +
-                getName() + ";" +
-                getMatter().getId()+ ";" +
-                getTextSemester() + ";" +
-                getTextShift() + ";" +
+        return "*" + getId() + ",;" +
+                getName() + ",;" +
+                getMatter().getId()+ ",;" +
+                getTextSemester() + ",;" +
+                getTextShift() + ",;" +
                 listStudentsFile() + "\n";
     }
 

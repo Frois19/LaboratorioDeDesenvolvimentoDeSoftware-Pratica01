@@ -229,15 +229,24 @@ public class ManipulationFile {
     }
 
     public void readClassroomFile(ArrayList<Matter> matters, ArrayList<Student> students, ArrayList<Classroom> classrooms) throws IOException {
-        String idMatter = "";
-        Matter matter;
-        String id = "";
-        String name = "";
-        String semester = "";
-        String shift = "";
-        String idStudent = "";
+        ArrayList<String> idMatter = new ArrayList();
+        ArrayList<Matter> mattersTemp = new ArrayList();
+        mattersTemp.clear();
+        ArrayList<String> id = new ArrayList();
+        ArrayList<String> name = new ArrayList();
+        ArrayList<String> semester = new ArrayList();
+        ArrayList<String> shift = new ArrayList();
+        ArrayList<String> idStudent = new ArrayList();
         ArrayList<Student> studentsTemp = new ArrayList();
+        studentsTemp.clear();
         int index = 0;
+        int i = 0;
+        String idAux= "";
+        String idMatterAux= "";
+        String nameAux= "";
+        String semesterAux= "";
+        String shiftAux= "";
+        String idStudentAux= "";
         //Clear array
         classrooms.clear();
         BufferedReader buffRead = new BufferedReader(new FileReader("classroom.txt"));
@@ -247,44 +256,71 @@ public class ManipulationFile {
             if (";".equals(String.valueOf((char) character))) {
                 counter++;
             } else if ("\n".equals(String.valueOf((char) character))) {
-                index = searchMatter(idMatter, matters);
-                matter = matters.get(index);
-                Classroom classroom = new Classroom(matter, id, name, semester, shift);
+                index = searchMatter(idMatter.get(i), matters);
+                mattersTemp.add(matters.get(0));
+                Classroom classroom = new Classroom(mattersTemp.get(i), id.get(i), name.get(i), semester.get(i), shift.get(i));
+                for (String array: idStudent){
+                    studentsTemp.add(students.get(searchStudent(array,students)));
+                }
                 for (Student s: studentsTemp){
                     classroom.addStudent(s);
                 }
                 classrooms.add(classroom);
                 counter = 0;
-//                idMatter = "";
-//                id = "";
-//                name = "";
-//                semester = "";
-//                shift = "";
-//                idStudent = "";
+                i++;
+            }else if ("*".equals(String.valueOf((char) character))){
+                idAux = "";
+                idMatterAux = "";
+                nameAux = "";
+                semesterAux = "";
+                shiftAux = "";
+                idStudentAux = "";
+                studentsTemp.clear();
+                idStudent.clear();
             } else {
                 switch (counter){
                     case 0:
-                        id = id.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            id.add(idAux);
+                        } else {
+                            idAux = idAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 1:
-                        name = name.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            name.add(nameAux);
+                        } else {
+                            nameAux = nameAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 2:
-                        idMatter = idMatter.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            idMatter.add(idMatterAux);
+                        } else {
+                            idMatterAux = idMatterAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 3:
-                        semester = semester.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            semester.add(semesterAux);
+                        } else {
+                            semesterAux = semesterAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 4:
-                        shift = shift.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            shift.add(shiftAux);
+                        } else {
+                            shiftAux = shiftAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 5:
-                        if( ",".equals(String.valueOf((char) character))){
-                            index = searchStudent(idStudent, students);
-                            studentsTemp.add(students.get(index));
-                            idStudent = "";
-                        } else {
-                            idStudent = idStudent.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            idStudent.add(idStudentAux);
+                        } else if ("#".equals(String.valueOf((char) character))){
+                            idStudentAux="";
+                        }else {
+                            idStudentAux = idStudentAux.concat(String.valueOf((char) character));
                         }
                         break;
                 }
