@@ -82,6 +82,6 @@ public class Matter {
                 "\n\t- Name: " + getName() +
                 "\n\t- Id: " + getId() +
                 "\n\t- Credits:" + getCredits() +
-                "\n\t- Type: " + getTextType();
+                "\n\t- Type: " + getTextType() + "\n";
     }
 }

@@ -139,15 +139,18 @@ public class ManipulationFile {
         matters.clear();
         BufferedReader buffRead = new BufferedReader(new FileReader("matter.txt"));
         int counter = 0;
+        int times = 1;
         int character = buffRead.read();
         while (character != -1) {
             if (";".equals(String.valueOf(character))) {
                counter++;
             } else if ("\n".equals(String.valueOf(character))) {
+                System.out.println("aqui");
                 Matter matter = new Matter(name, id, credits, type);
                 matters.add(matter);
                 counter = 0;
             } else {
+                System.out.println("eu");
                 switch (counter){
                     case 0:
                         id.concat(String.valueOf(character));
@@ -163,6 +166,7 @@ public class ManipulationFile {
                         break;
                 }
             }
+
             character = buffRead.read();
         }
         buffRead.close();
