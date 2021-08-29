@@ -107,28 +107,26 @@ public class Classroom {
 
     public void addStudent(Student student){
         students.add(student);
+        System.out.println("Added student.");
     }
 
     public String listStudents(){
         String listStudents = "\n\t- Students:";
         for(Student s: students){
-            listStudents.concat("\n\t\t- " + s.getName());
+            listStudents=listStudents.concat("\n\t\t- " + s.getName());
         }
         return listStudents;
     }
 
     public String listStudentsFile(){
-        String listMatter = "";
+        String listStudents = "";
         int position = 0;
         for(Student s: students){
-            if (position<students.size()-1) {
-                listMatter.concat(s.getRegistry() + ",");
-            } else {
-                listMatter.concat(s.getRegistry() + ";");
-            }
+            listStudents=listStudents.concat(s.getRegistry() + ",");
             position++;
         }
-        return listMatter;
+        listStudents=listStudents.concat(";");
+        return listStudents;
     }
 
     public int searchStudent(String registry){
@@ -166,11 +164,11 @@ public class Classroom {
     @Override
     public String toString() {
         return "\nClassroom Information" +
-                "\n\t-Id: " + getId() +
+                "\n\t- Id: " + getId() +
                 "\n\t- Name: " + getName() +
                 "\n\t- Matter: " + getMatter().getName() +
                 "\n\t- Semester: " + getTextSemester() +
                 "\n\t- Shift: " + getTextShift() +
-                listStudents();
+                listStudents()+ "\n";
     }
 }

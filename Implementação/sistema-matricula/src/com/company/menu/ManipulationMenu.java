@@ -1,13 +1,18 @@
 package com.company.menu;
 
 import com.company.classroom.Classroom;
+import com.company.classroom.SemesterType;
+import com.company.classroom.ShiftType;
 import com.company.file.ManipulationFile;
 import com.company.matter.Matter;
+import com.company.matter.MatterType;
 import com.company.user.User;
 import com.company.user.type.Secretary;
 import com.company.user.type.Student;
 import com.company.user.type.Teacher;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -29,57 +34,67 @@ public class ManipulationMenu {
 
     public void menuSystem() throws IOException {
         ArrayList <Matter> matters = new ArrayList<>();
-        Matter matter1 = new Matter("Math", "2", "50","MANDATORY");
-        Matter matter2 = new Matter("Biology", "3", "30","MANDATORY");
-        Matter matter3 = new Matter("Fisic", "4", "70","MANDATORY");
-////        ArrayList <Student> students = new ArrayList<>();
-////        ArrayList <Classroom> classrooms = new ArrayList<>();
-////        ArrayList <Teacher> teachers = new ArrayList<>();
-//        ArrayList <Secretary> secretaries = new ArrayList<>();
+        ArrayList <Student> students = new ArrayList<>();
+        ArrayList <Classroom> classrooms = new ArrayList<>();
+        ArrayList <Teacher> teachers = new ArrayList<>();
+        ArrayList <Secretary> secretaries = new ArrayList<>();
 
         ManipulationFile file = new ManipulationFile();
 
-        file.addMatter(matter1, matters);
-        file.addMatter(matter2, matters);
-        file.addMatter(matter3, matters);
+        file.deleteFile("matter.txt");
+        file.deleteFile("student.txt");
+        file.deleteFile("classroom.txt");
+        file.deleteFile("teacher.txt");
+        file.deleteFile("secretary.txt");
 
+        Matter matter = new Matter("Math", "1245", 50, MatterType.MANDATORY);
+        file.addMatter(matter, matters);
+
+        Student student = new Student("Joao", "joao@email.com", "senha123", "123456");
+        student.addMatter(matter);
+        file.addStudent(student, students);
+
+        Classroom classroom = new Classroom(matter, "789456123", "Engenharia", SemesterType.SECOND, ShiftType.DAYTIME);
+        classroom.addStudent(student);
+        file.addClassroom(classroom, classrooms);
+
+        Teacher teacher = new Teacher("Lucas", "lucas@email.com", "senha123", "456789");
+        teacher.addClassroom(classroom);
+        file.addTeacher(teacher, teachers);
+
+        Secretary secretary = new Secretary("Felipe", "felipe@email.com", "senha123", "987123");
+        file.addSecretary(secretary,secretaries);
+
+        System.out.println("\n\nPrint array after write");
         System.out.println(matters);
+        System.out.println("-------");
+        System.out.println(students);
+        System.out.println("-------");
+        System.out.println(classrooms);
+        System.out.println("-------");
+        System.out.println(teachers);
+        System.out.println("-------");
+        System.out.println(secretaries);
+        System.out.println("-------");
 
+        System.out.println("\n\nStart read files");
         file.readMatterFile(matters);
+        file.readStudentFile(matters,students);
+        file.readClassroomFile(matters, students, classrooms);
+        file.readTeacherFile(classrooms, teachers);
+        file.readSecretaryFile(secretaries);
+        System.out.println("Finish read files");
 
-        System.out.println("\n\n"+ matters);
-
-//        file.readStudentFile(matters, students);
-//
-//        file.readClassroomFile(matters, students, classrooms);
-//
-//        file.readTeacherFile(classrooms, teachers);
-//
-//        file.readSecretaryFile(secretaries);
-//
-//        Scanner scan = new Scanner(System.in);
-//
-//        String username, password;
-//
-//        System.out.println("Enter your username");
-//        username = scan.next();
-//        System.out.println("Enter your password");
-//        password = scan.next();
-//
-//        System.out.println(file.searchStudent(username, students));
-//
-//        if(userTypeMenu() == 1){
-//
-//        }else if( userTypeMenu()==2){
-//
-//        }else if( userTypeMenu()==3){
-//
-//        }else{
-//            System.out.println("User type not found");
-//            userTypeMenu();
-//        }
+        System.out.println("\n\nPrint array after read");
+        System.out.println(matters);
+        System.out.println("-------");
+        System.out.println(students);
+        System.out.println("-------");
+        System.out.println(classrooms);
+        System.out.println("-------");
+        System.out.println(teachers);
+        System.out.println("-------");
+        System.out.println(secretaries);
+        System.out.println("-------");
     }
-
-
-
 }

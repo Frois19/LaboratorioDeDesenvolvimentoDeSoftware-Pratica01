@@ -13,31 +13,31 @@ public class ManipulationFile {
 
     //Write in files
     public void writeMatter(Matter matter) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("matter.txt"));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("matter.txt", true));
         buffWrite.append(matter.textFile());
         buffWrite.close();
     }
 
     public void writeStudent(Student student) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("student.txt"));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("student.txt", true));
         buffWrite.append(student.textFile());
         buffWrite.close();
     }
 
     public void writeClassroom(Classroom classroom) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("classroom.txt"));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("classroom.txt", true));
         buffWrite.append(classroom.textFile());
         buffWrite.close();
     }
 
     public void writeTeacher(Teacher teacher) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("teacher.txt"));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("teacher.txt", true));
         buffWrite.append(teacher.textFile());
         buffWrite.close();
     }
 
     public void writeSecretary(Secretary secretary) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("secretary.txt"));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("secretary.txt", true));
         buffWrite.append(secretary.textFile());
         buffWrite.close();
     }
@@ -142,27 +142,25 @@ public class ManipulationFile {
         int times = 1;
         int character = buffRead.read();
         while (character != -1) {
-            if (";".equals(String.valueOf(character))) {
+            if (";".equals(String.valueOf((char) character))) {
                counter++;
-            } else if ("\n".equals(String.valueOf(character))) {
-                System.out.println("aqui");
+            } else if ("\n".equals(String.valueOf((char) character))) {
                 Matter matter = new Matter(name, id, credits, type);
                 matters.add(matter);
                 counter = 0;
             } else {
-                System.out.println("eu");
                 switch (counter){
                     case 0:
-                        id.concat(String.valueOf(character));
+                        id = id.concat(String.valueOf((char) character));
                         break;
                     case 1:
-                        name.concat(String.valueOf(character));
+                        name = name.concat(String.valueOf((char) character));
                         break;
                     case 2:
-                        credits.concat(String.valueOf(character));
+                        credits = credits.concat(String.valueOf((char) character));
                         break;
                     case 3:
-                        type.concat(String.valueOf(character));
+                        type = type.concat(String.valueOf((char) character));
                         break;
                 }
             }
@@ -187,9 +185,9 @@ public class ManipulationFile {
         int counter = 0;
         int character = buffRead.read();
         while (character != -1) {
-            if (";".equals(String.valueOf(character))) {
+            if (";".equals(String.valueOf((char) character))) {
                 counter++;
-            } else if ("\n".equals(String.valueOf(character))) {
+            } else if ("\n".equals(String.valueOf((char) character))) {
                 Student student = new Student(name, email, password, registry, status);
                 for (Matter m: mattersTemp){
                     student.addMatter(m);
@@ -199,27 +197,27 @@ public class ManipulationFile {
             } else {
                 switch (counter){
                     case 0:
-                        registry.concat(String.valueOf(character));
+                        registry = registry.concat(String.valueOf((char) character));
                         break;
                     case 1:
-                        name.concat(String.valueOf(character));
+                        name = name.concat(String.valueOf((char) character));
                         break;
                     case 2:
-                        email.concat(String.valueOf(character));
+                        email = email.concat(String.valueOf((char) character));
                         break;
                     case 3:
-                        password.concat(String.valueOf(character));
+                        password = password.concat(String.valueOf((char) character));
                         break;
                     case 4:
-                        status.concat(String.valueOf(character));
+                        status = status.concat(String.valueOf((char) character));
                         break;
                     case 5:
-                        if( ",".equals(String.valueOf(character))){
+                        if( ",".equals(String.valueOf((char) character))){
                             index = searchMatter(idMatter, matters);
                             mattersTemp.add(matters.get(index));
                             idMatter = "";
                         } else {
-                            idMatter.concat(String.valueOf(character));
+                            idMatter = idMatter.concat(String.valueOf((char) character));
                         }
                         break;
                 }
@@ -245,9 +243,9 @@ public class ManipulationFile {
         int counter = 0;
         int character = buffRead.read();
         while (character != -1) {
-            if (";".equals(String.valueOf(character))) {
+            if (";".equals(String.valueOf((char) character))) {
                 counter++;
-            } else if ("\n".equals(String.valueOf(character))) {
+            } else if ("\n".equals(String.valueOf((char) character))) {
                 index = searchMatter(idMatter, matters);
                 matter = matters.get(index);
                 Classroom classroom = new Classroom(matter, id, name, semester, shift);
@@ -259,27 +257,27 @@ public class ManipulationFile {
             } else {
                 switch (counter){
                     case 0:
-                        id.concat(String.valueOf(character));
+                        id = id.concat(String.valueOf((char) character));
                         break;
                     case 1:
-                        name.concat(String.valueOf(character));
+                        name = name.concat(String.valueOf((char) character));
                         break;
                     case 2:
-                        idMatter.concat(String.valueOf(character));
+                        idMatter = idMatter.concat(String.valueOf((char) character));
                         break;
                     case 3:
-                        semester.concat(String.valueOf(character));
+                        semester = semester.concat(String.valueOf((char) character));
                         break;
                     case 4:
-                        shift.concat(String.valueOf(character));
+                        shift = shift.concat(String.valueOf((char) character));
                         break;
                     case 5:
-                        if( ",".equals(String.valueOf(character))){
+                        if( ",".equals(String.valueOf((char) character))){
                             index = searchStudent(idStudent, students);
                             studentsTemp.add(students.get(index));
                             idStudent = "";
                         } else {
-                            idStudent.concat(String.valueOf(character));
+                            idStudent = idStudent.concat(String.valueOf((char) character));
                         }
                         break;
                 }
@@ -304,9 +302,9 @@ public class ManipulationFile {
         int counter = 0;
         int character = buffRead.read();
         while (character != -1) {
-            if (";".equals(String.valueOf(character))) {
+            if (";".equals(String.valueOf((char) character))) {
                 counter++;
-            } else if ("\n".equals(String.valueOf(character))) {
+            } else if ("\n".equals(String.valueOf((char) character))) {
                 Teacher teacher = new Teacher(name, email, password, registry, status);
                 for (Classroom c: classroomsTemp){
                     teacher.addClassroom(c);
@@ -316,27 +314,27 @@ public class ManipulationFile {
             } else {
                 switch (counter){
                     case 0:
-                        registry.concat(String.valueOf(character));
+                        registry = registry.concat(String.valueOf((char) character));
                         break;
                     case 1:
-                        name.concat(String.valueOf(character));
+                        name = name.concat(String.valueOf((char) character));
                         break;
                     case 2:
-                        email.concat(String.valueOf(character));
+                        email = email.concat(String.valueOf((char) character));
                         break;
                     case 3:
-                        password.concat(String.valueOf(character));
+                        password = password.concat(String.valueOf((char) character));
                         break;
                     case 4:
-                        status.concat(String.valueOf(character));
+                        status = status.concat(String.valueOf((char) character));
                         break;
                     case 5:
-                        if( ",".equals(String.valueOf(character))){
+                        if( ",".equals(String.valueOf((char) character))){
                             index = searchClassroom(idClassroom, classrooms);
                             classroomsTemp.add(classrooms.get(index));
                             idClassroom = "";
                         } else {
-                            idClassroom.concat(String.valueOf(character));
+                            idClassroom = idClassroom.concat(String.valueOf((char) character));
                         }
                         break;
                 }
@@ -359,28 +357,28 @@ public class ManipulationFile {
         int counter = 0;
         int character = buffRead.read();
         while (character != -1) {
-            if (";".equals(String.valueOf(character))) {
+            if (";".equals(String.valueOf((char) character))) {
                 counter++;
-            } else if ("\n".equals(String.valueOf(character))) {
+            } else if ("\n".equals(String.valueOf((char) character))) {
                 Secretary secretary = new Secretary(name, email, password, registry, status);
                 secretaries.add(secretary);
                 counter = 0;
             } else {
                 switch (counter){
                     case 0:
-                        registry.concat(String.valueOf(character));
+                        registry = registry.concat(String.valueOf((char) character));
                         break;
                     case 1:
-                        name.concat(String.valueOf(character));
+                        name = name.concat(String.valueOf((char) character));
                         break;
                     case 2:
-                        email.concat(String.valueOf(character));
+                        email = email.concat(String.valueOf((char) character));
                         break;
                     case 3:
-                        password.concat(String.valueOf(character));
+                        password = password.concat(String.valueOf((char) character));
                         break;
                     case 4:
-                        status.concat(String.valueOf(character));
+                        status = status.concat(String.valueOf((char) character));
                         break;
                 }
             }
@@ -389,10 +387,19 @@ public class ManipulationFile {
         buffRead.close();
     }
 
+    // verificar se exist arquivo
+    public boolean checkFile (String path){
+        File file = new File(path);
+        if (file.exists()){
+            return true;
+        }
+        return false;
+    }
+
     //Delete full file
     public boolean deleteFile (String path){
         File file = new File(path);
-        if (file.exists()){
+        if (checkFile(path)){
             file.delete();
             return true;
         }

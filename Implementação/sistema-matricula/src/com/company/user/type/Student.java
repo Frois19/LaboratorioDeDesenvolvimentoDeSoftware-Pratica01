@@ -31,7 +31,7 @@ public class Student extends User {
     public String listMatters(){
         String listMatter = "\n\t- Matters:";
         for(Matter m: matters){
-            listMatter.concat("\n\t\t- " + m.getName());
+            listMatter = listMatter.concat("\n\t\t- " + m.getName());
         }
         return listMatter;
     }
@@ -40,13 +40,10 @@ public class Student extends User {
         String listMatter = "";
         int position = 0;
         for(Matter m: matters){
-            if (position<matters.size()-1) {
-                listMatter.concat(m.getId() + ",");
-            } else {
-                listMatter.concat(m.getId() + ";");
-            }
+            listMatter=listMatter.concat(m.getId() + ",");
             position++;
         }
+        listMatter=listMatter.concat(";");
         return listMatter;
     }
 
@@ -89,7 +86,7 @@ public class Student extends User {
                 "\n\t- Registry: " + getRegistry() +
                 "\n\t- E-mail:" + getEmail() +
                 "\n\t- Status: " + getStatus() +
-                listMatters();
+                listMatters() + "\n";
     }
 
 }

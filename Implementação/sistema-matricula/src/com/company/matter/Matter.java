@@ -70,8 +70,8 @@ public class Matter {
     }
 
     public String textFile() {
-        return getName() + ";" +
-                getId() + ";" +
+        return getId() + ";" +
+                getName() + ";" +
                 getCredits() + ";" +
                 getTextType() + ";" + "\n";
     }

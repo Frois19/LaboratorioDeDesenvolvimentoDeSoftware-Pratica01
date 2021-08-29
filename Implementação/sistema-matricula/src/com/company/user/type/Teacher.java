@@ -21,28 +21,26 @@ public class Teacher extends User {
 
     public void addClassroom(Classroom classroom){
         classrooms.add(classroom);
+        System.out.println("Added classrom.");
     }
 
     public String listClassrooms(){
         String listClassroom = "\n\t- Classrooms:";
         for(Classroom c: classrooms){
-            listClassroom.concat("\n\t\t- " + c.getName());
+            listClassroom = listClassroom.concat("\n\t\t- " + c.getName());
         }
         return listClassroom;
     }
 
     public String listClassroomsFile(){
-        String listMatter = "";
+        String listClassroom = "";
         int position = 0;
         for(Classroom c: classrooms){
-            if (position<classrooms.size()-1) {
-                listMatter.concat(c.getId() + ",");
-            } else {
-                listMatter.concat(c.getId() + ";");
-            }
+            listClassroom = listClassroom.concat(c.getId() + ",");
             position++;
         }
-        return listMatter;
+        listClassroom=listClassroom.concat(";");
+        return listClassroom;
     }
 
     public int searchClassroom(String id){
@@ -93,7 +91,7 @@ public class Teacher extends User {
                 "\n\t- Registry: " + getRegistry() +
                 "\n\t- E-mail:" + getEmail() +
                 "\n\t- Status: " + getTextStatus() +
-                listClassrooms();
+                listClassrooms() + "\n";
     }
 }
 

@@ -106,7 +106,7 @@ public abstract class User {
                 "\n\t- Name: " + getName() +
                 "\n\t- Registry: " + getRegistry() +
                 "\n\t- E-mail:" + getEmail() +
-                "\n\t- Status: " + getStatus();
+                "\n\t- Status: " + getStatus()+ "\n";
     }
 
 }
