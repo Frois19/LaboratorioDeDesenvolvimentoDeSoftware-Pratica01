@@ -65,6 +65,25 @@ public class ManipulationMenu {
         Secretary secretary = new Secretary("Felipe", "felipe@email.com", "senha123", "987123");
         file.addSecretary(secretary,secretaries);
 
+        //aqui
+        Matter matter2 = new Matter("Fisic", "5432", 50, MatterType.MANDATORY);
+        file.addMatter(matter2, matters);
+
+        Student student2 = new Student("Bryan", "Bryan@email.com", "senha123", "789456");
+        student2.addMatter(matter2);
+        file.addStudent(student2, students);
+
+        Classroom classroom2 = new Classroom(matter2, "963852741", "Odonto", SemesterType.SECOND, ShiftType.DAYTIME);
+        classroom2.addStudent(student2);
+        file.addClassroom(classroom2, classrooms);
+
+        Teacher teacher2 = new Teacher("Pedro", "Pedro@email.com", "senha123", "741258");
+        teacher2.addClassroom(classroom2);
+        file.addTeacher(teacher2, teachers);
+
+        Secretary secretary2 = new Secretary("Jose", "Jose@email.com", "senha123", "963258");
+        file.addSecretary(secretary2,secretaries);
+
         System.out.println("\n\nPrint array after write");
         System.out.println(matters);
         System.out.println("-------");
@@ -79,22 +98,27 @@ public class ManipulationMenu {
 
         System.out.println("\n\nStart read files");
         file.readMatterFile(matters);
-        file.readStudentFile(matters,students);
+        System.out.println("1");
+        //file.readStudentFile(matters,students);
+        System.out.println("2");
         file.readClassroomFile(matters, students, classrooms);
-        file.readTeacherFile(classrooms, teachers);
+        System.out.println("3");
+        //file.readTeacherFile(classrooms, teachers);
+        System.out.println("4");
         file.readSecretaryFile(secretaries);
+        System.out.println("5");
         System.out.println("Finish read files");
 
         System.out.println("\n\nPrint array after read");
-        System.out.println(matters);
-        System.out.println("-------");
-        System.out.println(students);
-        System.out.println("-------");
+        //System.out.println(matters);
+        //System.out.println("-------");
+        //System.out.println(students);
+        //System.out.println("-------");
         System.out.println(classrooms);
-        System.out.println("-------");
-        System.out.println(teachers);
-        System.out.println("-------");
-        System.out.println(secretaries);
-        System.out.println("-------");
+        //System.out.println("-------");
+        //System.out.println(teachers);
+        //System.out.println("-------");
+        //System.out.println(secretaries);
+        //System.out.println("-------");
     }
 }

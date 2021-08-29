@@ -1,6 +1,7 @@
 package com.company.file;
 
 import com.company.classroom.Classroom;
+import com.company.classroom.SemesterType;
 import com.company.matter.Matter;
 import com.company.user.type.Secretary;
 import com.company.user.type.Student;
@@ -254,6 +255,12 @@ public class ManipulationFile {
                 }
                 classrooms.add(classroom);
                 counter = 0;
+//                idMatter = "";
+//                id = "";
+//                name = "";
+//                semester = "";
+//                shift = "";
+//                idStudent = "";
             } else {
                 switch (counter){
                     case 0:

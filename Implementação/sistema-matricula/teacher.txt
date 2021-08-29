@@ -1,1 +1,2 @@
 456789;Lucas;lucas@email.com;senha123;ACTIVE;789456123,;
+741258;Pedro;Pedro@email.com;senha123;ACTIVE;963852741,;
