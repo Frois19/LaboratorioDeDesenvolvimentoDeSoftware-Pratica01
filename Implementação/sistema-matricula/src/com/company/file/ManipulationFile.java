@@ -132,37 +132,65 @@ public class ManipulationFile {
 
     //Read files and fill lists
     public void readMatterFile(ArrayList<Matter> matters) throws IOException {
-        String name = "";
-        String id= "";
-        String credits= "";
-        String type= "";
+        ArrayList<String> id = new ArrayList();
+        ArrayList<String> name = new ArrayList();
+        ArrayList<String> credits = new ArrayList();
+        ArrayList<String> type = new ArrayList();
+
+        int i = 0;
+
+        String idAux= "";
+        String nameAux = "";
+        String creditsAux= "";
+        String typeAux= "";
+
+
         //Clear array
         matters.clear();
         BufferedReader buffRead = new BufferedReader(new FileReader("matter.txt"));
         int counter = 0;
-        int times = 1;
         int character = buffRead.read();
         while (character != -1) {
             if (";".equals(String.valueOf((char) character))) {
                counter++;
             } else if ("\n".equals(String.valueOf((char) character))) {
-                Matter matter = new Matter(name, id, credits, type);
+                Matter matter = new Matter(name.get(i), id.get(i), credits.get(i), type.get(i));
                 matters.add(matter);
                 counter = 0;
+                i++;
+            }else if("*".equals(String.valueOf((char) character))){
+                idAux= "";
+                nameAux = "";
+                creditsAux= "";
+                typeAux= "";
             } else {
                 switch (counter){
                     case 0:
-                        id = id.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))) {
+                            id.add(idAux);
+                        }else{
+                            idAux = idAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 1:
-                        name = name.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            name.add(nameAux);
+                        } else {
+                            nameAux = nameAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 2:
-                        credits = credits.concat(String.valueOf((char) character));
-                        break;
+                        if(",".equals(String.valueOf((char) character))){
+                            credits.add(creditsAux);
+                        } else {
+                            creditsAux = creditsAux.concat(String.valueOf((char) character));
+                        }
                     case 3:
-                        type = type.concat(String.valueOf((char) character));
-                        break;
+                        if(",".equals(String.valueOf((char) character))){
+                            type.add(typeAux);
+                        } else {
+                            typeAux = typeAux.concat(String.valueOf((char) character));
+                        }
                 }
             }
 
@@ -172,13 +200,26 @@ public class ManipulationFile {
     }
 
     public void readStudentFile(ArrayList<Matter> matters, ArrayList<Student> students) throws IOException {
-        String name = "";
-        String email = "";
-        String password = "";
-        String registry = "";
-        String status = "";
-        String idMatter = "";
+        ArrayList<String> name = new ArrayList();
+        ArrayList<String> email = new ArrayList();
+        ArrayList<String> password = new ArrayList();
+        ArrayList<String> registry = new ArrayList();
+        ArrayList<String> status = new ArrayList();
+        ArrayList<String> idMatter = new ArrayList();
         ArrayList<Matter> mattersTemp = new ArrayList();
+        mattersTemp.clear();
+
+
+        int i = 0;
+
+
+        String nameAux = "";
+        String emailAux = "";
+        String passwordAux = "";
+        String registryAux = "";
+        String statusAux = "";
+        String idMatterAux = "";
+
         int index = 0;
         //Clear array
         students.clear();
@@ -189,36 +230,69 @@ public class ManipulationFile {
             if (";".equals(String.valueOf((char) character))) {
                 counter++;
             } else if ("\n".equals(String.valueOf((char) character))) {
-                Student student = new Student(name, email, password, registry, status);
+                Student student = new Student(name.get(i), email.get(i), password.get(i), registry.get(i), status.get(i));
+                for(String array: idMatter){
+                    mattersTemp.add(matters.get(searchMatter(array, matters)));
+                }
                 for (Matter m: mattersTemp){
                     student.addMatter(m);
                 }
                 students.add(student);
                 counter = 0;
-            } else {
+                i++;
+            }else if("*".equals(String.valueOf((char) character))){
+                nameAux = "";
+                emailAux = "";
+                passwordAux = "";
+                registryAux = "";
+                statusAux = "";
+                idMatterAux = "";
+                idMatter.clear();
+                mattersTemp.clear();
+            } else  {
                 switch (counter){
                     case 0:
-                        registry = registry.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            registry.add(registryAux);
+                        } else {
+                            registryAux = registryAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 1:
-                        name = name.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            name.add(nameAux);
+                        } else {
+                            nameAux = nameAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 2:
-                        email = email.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            email.add(emailAux);
+                        } else {
+                            emailAux = emailAux.concat(String.valueOf((char) character));
+                        };
                         break;
                     case 3:
-                        password = password.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            password.add(passwordAux);
+                        } else {
+                            passwordAux = passwordAux.concat(String.valueOf((char) character));
+                        };
                         break;
                     case 4:
-                        status = status.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            status.add(statusAux);
+                        } else {
+                            statusAux = statusAux.concat(String.valueOf((char) character));
+                        };
                         break;
                     case 5:
-                        if( ",".equals(String.valueOf((char) character))){
-                            index = searchMatter(idMatter, matters);
-                            mattersTemp.add(matters.get(index));
-                            idMatter = "";
-                        } else {
-                            idMatter = idMatter.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                           idMatter.add(idMatterAux);
+                        } else if("#".equals(String.valueOf((char) character))) {
+                            idMatterAux="";
+                        }else{
+                            idMatterAux = idMatterAux.concat(String.valueOf((char) character));
                         }
                         break;
                 }
@@ -331,13 +405,24 @@ public class ManipulationFile {
     }
 
     public void readTeacherFile(ArrayList<Classroom> classrooms, ArrayList<Teacher> teachers) throws IOException {
-        String name = "";
-        String email = "";
-        String password = "";
-        String registry = "";
-        String status = "";
-        String idClassroom = "";
+        ArrayList<String> name = new ArrayList();
+        ArrayList<String> email = new ArrayList();
+        ArrayList<String> password = new ArrayList();
+        ArrayList<String> registry = new ArrayList();
+        ArrayList<String> status = new ArrayList();
+        ArrayList<String> idClassroom = new ArrayList();
         ArrayList<Classroom> classroomsTemp = new ArrayList();
+        classroomsTemp.clear();
+
+        int i = 0;
+
+        String nameAux = "";
+        String emailAux = "";
+        String passwordAux = "";
+        String registryAux = "";
+        String statusAux = "";
+        String idClassroomAux = "";
+
         int index = 0;
         //Clear array
         teachers.clear();
@@ -348,36 +433,69 @@ public class ManipulationFile {
             if (";".equals(String.valueOf((char) character))) {
                 counter++;
             } else if ("\n".equals(String.valueOf((char) character))) {
-                Teacher teacher = new Teacher(name, email, password, registry, status);
+                Teacher teacher = new Teacher(name.get(i), email.get(i), password.get(i), registry.get(i), status.get(i));
+                for(String array : idClassroom){
+                    classroomsTemp.add(classrooms.get(searchClassroom(array,classrooms)));
+                }
                 for (Classroom c: classroomsTemp){
                     teacher.addClassroom(c);
                 }
                 teachers.add(teacher);
                 counter = 0;
+                i++;
+            }else if("*".equals(String.valueOf((char) character))){
+                nameAux = "";
+                emailAux = "";
+                passwordAux = "";
+                registryAux = "";
+                statusAux = "";
+                idClassroomAux = "";
+                classroomsTemp.clear();
+                idClassroom.clear();
             } else {
                 switch (counter){
                     case 0:
-                        registry = registry.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            registry.add(registryAux);
+                        } else {
+                            registryAux = registryAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 1:
-                        name = name.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            name.add(nameAux);
+                        } else {
+                            nameAux = nameAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 2:
-                        email = email.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            email.add(emailAux);
+                        } else {
+                            emailAux = emailAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 3:
-                        password = password.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            password.add(passwordAux);
+                        } else {
+                            passwordAux = passwordAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 4:
-                        status = status.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))){
+                            status.add(statusAux);
+                        } else {
+                            statusAux = statusAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 5:
                         if( ",".equals(String.valueOf((char) character))){
-                            index = searchClassroom(idClassroom, classrooms);
-                            classroomsTemp.add(classrooms.get(index));
-                            idClassroom = "";
-                        } else {
-                            idClassroom = idClassroom.concat(String.valueOf((char) character));
+                            idClassroom.add(idClassroomAux);
+                        } else if("#".equals(String.valueOf((char) character))) {
+                            idClassroomAux = "";
+                        }else{
+                            idClassroomAux = idClassroomAux.concat(String.valueOf((char) character));
                         }
                         break;
                 }
@@ -388,11 +506,20 @@ public class ManipulationFile {
     }
 
     public void readSecretaryFile(ArrayList<Secretary> secretaries) throws IOException {
-        String name = "";
-        String email = "";
-        String password = "";
-        String registry = "";
-        String status = "";
+        ArrayList<String> name = new ArrayList();
+        ArrayList<String> email = new ArrayList();
+        ArrayList<String> password = new ArrayList();
+        ArrayList<String> registry = new ArrayList();
+        ArrayList<String> status = new ArrayList();
+
+        int i = 0;
+
+        String nameAux = "";
+        String emailAux = "";
+        String passwordAux = "";
+        String registryAux = "";
+        String statusAux = "";
+
         int index = 0;
         //Clear array
         secretaries.clear();
@@ -403,25 +530,52 @@ public class ManipulationFile {
             if (";".equals(String.valueOf((char) character))) {
                 counter++;
             } else if ("\n".equals(String.valueOf((char) character))) {
-                Secretary secretary = new Secretary(name, email, password, registry, status);
+                Secretary secretary = new Secretary(name.get(i), email.get(i), password.get(i), registry.get(i), status.get(i));
                 secretaries.add(secretary);
                 counter = 0;
+                i++;
+            }else if("*".equals(String.valueOf((char) character))){
+                nameAux = "";
+                emailAux = "";
+                passwordAux = "";
+                registryAux = "";
+                statusAux = "";
             } else {
                 switch (counter){
                     case 0:
-                        registry = registry.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))) {
+                            registry.add(registryAux);
+                        }else{
+                            registryAux = registryAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 1:
-                        name = name.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))) {
+                            name.add(nameAux);
+                        }else{
+                            nameAux = nameAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 2:
-                        email = email.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))) {
+                            email.add(emailAux);
+                        }else{
+                            emailAux = emailAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 3:
-                        password = password.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))) {
+                            password.add(passwordAux);
+                        }else{
+                            passwordAux = passwordAux.concat(String.valueOf((char) character));
+                        }
                         break;
                     case 4:
-                        status = status.concat(String.valueOf((char) character));
+                        if(",".equals(String.valueOf((char) character))) {
+                            status.add(statusAux);
+                        }else{
+                            statusAux = statusAux.concat(String.valueOf((char) character));
+                        }
                         break;
                 }
             }

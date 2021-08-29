@@ -24,12 +24,49 @@ public class ManipulationMenu {
 
     public int userTypeMenu (){
         int userType = 0;
-        while(userType>= 1 && userType>=3){
-            Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter your user type: \n[1] - Student \n[2] - Teacher \n[3] - Secretary");
+        userType = scan.nextInt();
+        while(userType< 1 || userType>3){
             System.out.println("Enter your user type: \n[1] - Student \n[2] - Teacher \n[3] - Secretary");
             userType = scan.nextInt();
         }
         return userType;
+    }
+
+    public void menuOptions(int userType){
+        ManipulationFile file = new ManipulationFile();
+        if(userType==1){
+            if(file.checkFile("matter.txt")){
+               optionsStudents();
+            }else{
+                System.out.println("Matter not found please register one");
+            }
+        }else if(userType==2){
+            if(file.checkFile("matter.txt") && (file.checkFile("student.txt")) && (file.checkFile("classroom.txt"))){
+                optionsTeacher();
+            }else{
+                System.out.println("Matter, student or classroom not found please register each one");
+            }
+        }else if(userType==3){
+            optionsSecretary();
+        }
+    }
+
+    public void optionsSecretary(){
+        System.out.println("");
+    }
+
+    public void optionsTeacher(){
+        System.out.println("optionsTeacher");
+    }
+
+    public void optionsStudents(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter your register");
+        scan.next();
+        System.out.println("Enter your password");
+        scan.next();
     }
 
     public void menuSystem() throws IOException {
@@ -46,6 +83,10 @@ public class ManipulationMenu {
         file.deleteFile("classroom.txt");
         file.deleteFile("teacher.txt");
         file.deleteFile("secretary.txt");
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println();
+
 
         Matter matter = new Matter("Math", "1245", 50, MatterType.MANDATORY);
         file.addMatter(matter, matters);
@@ -96,29 +137,26 @@ public class ManipulationMenu {
         System.out.println(secretaries);
         System.out.println("-------");
 
+
         System.out.println("\n\nStart read files");
         file.readMatterFile(matters);
-        //System.out.println("1");
-        //file.readStudentFile(matters,students);
-        //System.out.println("2");
+        file.readStudentFile(matters,students);
         file.readClassroomFile(matters, students, classrooms);
-        //System.out.println("3");
-        //file.readTeacherFile(classrooms, teachers);
-        //System.out.println("4");
+        file.readTeacherFile(classrooms, teachers);
         file.readSecretaryFile(secretaries);
-        //System.out.println("5");
-        System.out.println("Finish read files");
 
+
+        System.out.println("Finish read files");
         System.out.println("\n\nPrint array after read");
-        //System.out.println(matters);
-        //System.out.println("-------");
-        //System.out.println(students);
-        //System.out.println("-------");
+        System.out.println(matters);
+        System.out.println("-------");
+        System.out.println(students);
+        System.out.println("-------");
         System.out.println(classrooms);
-        //System.out.println("-------");
-        //System.out.println(teachers);
-        //System.out.println("-------");
-        //System.out.println(secretaries);
-        //System.out.println("-------");
+        System.out.println("-------");
+        System.out.println(teachers);
+        System.out.println("-------");
+        System.out.println(secretaries);
+        System.out.println("-------");
     }
 }

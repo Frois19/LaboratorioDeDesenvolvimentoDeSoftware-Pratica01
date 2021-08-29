@@ -40,7 +40,7 @@ public class Student extends User {
         String listMatter = "";
         int position = 0;
         for(Matter m: matters){
-            listMatter=listMatter.concat(m.getId() + ",");
+            listMatter=listMatter.concat(m.getId() + ",#");
             position++;
         }
         listMatter=listMatter.concat(";");
@@ -71,11 +71,11 @@ public class Student extends User {
     }
 
     public String textFile() {
-        return getRegistry() + ";" +
-                getName() + ";" +
-                getEmail() + ";" +
-                getPassword() + ";" +
-                getTextStatus() + ";" +
+        return  "*" + getRegistry() + ",;" +
+                getName() + ",;" +
+                getEmail() + ",;" +
+                getPassword() + ",;" +
+                getTextStatus() + ",;" +
                 listMattersFile() + "\n";
     }
 

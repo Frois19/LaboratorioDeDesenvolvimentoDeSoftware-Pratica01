@@ -70,10 +70,10 @@ public class Matter {
     }
 
     public String textFile() {
-        return getId() + ";" +
-                getName() + ";" +
-                getCredits() + ";" +
-                getTextType() + ";" + "\n";
+        return "*" + getId() + ",;" +
+                getName() + ",;" +
+                getCredits() + ",;" +
+                getTextType() + ",;" + "\n";
     }
 
     @Override

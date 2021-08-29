@@ -36,7 +36,7 @@ public class Teacher extends User {
         String listClassroom = "";
         int position = 0;
         for(Classroom c: classrooms){
-            listClassroom = listClassroom.concat(c.getId() + ",");
+            listClassroom = listClassroom.concat(c.getId() + ",#");
             position++;
         }
         listClassroom=listClassroom.concat(";");
@@ -76,11 +76,11 @@ public class Teacher extends User {
     }
 
     public String textFile() {
-        return getRegistry() + ";" +
-                getName() + ";" +
-                getEmail() + ";" +
-                getPassword() + ";" +
-                getTextStatus() + ";" +
+        return "*" + getRegistry() + ",;" +
+                getName() + ",;" +
+                getEmail() + ",;" +
+                getPassword() + ",;" +
+                getTextStatus() + ",;" +
                 listClassroomsFile() + "\n";
     }
 
