@@ -2,6 +2,7 @@ package com.company.file;
 
 import com.company.classroom.Classroom;
 import com.company.matter.Matter;
+import com.company.user.type.Secretary;
 import com.company.user.type.Student;
 import com.company.user.type.Teacher;
 
@@ -35,6 +36,12 @@ public class ManipulationFile {
         buffWrite.close();
     }
 
+    public void writeSecretary(Secretary secretary) throws IOException {
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("secretary.txt"));
+        buffWrite.append(secretary.textFile());
+        buffWrite.close();
+    }
+
     //Adding to lists and write in files
     public void addMatter(Matter matter, ArrayList<Matter> matters) throws IOException {
         writeMatter(matter);
@@ -54,6 +61,11 @@ public class ManipulationFile {
     public void addTeacher(Teacher teacher, ArrayList<Teacher> teachers) throws IOException {
         writeTeacher(teacher);
         teachers.add(teacher);
+    }
+
+    public void addSecretary(Secretary secretary, ArrayList<Secretary> secretaries) throws IOException {
+        writeSecretary(secretary);
+        secretaries.add(secretary);
     }
 
     //Search arrays
@@ -97,6 +109,18 @@ public class ManipulationFile {
         int position = -1;
         int i = 0;
         for(Teacher t: teachers){
+            if (t.getRegistry().equals(registry)){
+                position = i;
+            }
+            i++;
+        }
+        return position;
+    }
+
+    public int searchSecretary(String registry, ArrayList<Secretary> secretaries){
+        int position = -1;
+        int i = 0;
+        for(Secretary t: secretaries){
             if (t.getRegistry().equals(registry)){
                 position = i;
             }
@@ -318,6 +342,49 @@ public class ManipulationFile {
         buffRead.close();
     }
 
+    public void readSecretaryFile(ArrayList<Secretary> secretaries) throws IOException {
+        String name = "";
+        String email = "";
+        String password = "";
+        String registry = "";
+        String status = "";
+        int index = 0;
+        //Clear array
+        secretaries.clear();
+        BufferedReader buffRead = new BufferedReader(new FileReader("secretary.txt"));
+        int counter = 0;
+        int character = buffRead.read();
+        while (character != -1) {
+            if (";".equals(String.valueOf(character))) {
+                counter++;
+            } else if ("\n".equals(String.valueOf(character))) {
+                Secretary secretary = new Secretary(name, email, password, registry, status);
+                secretaries.add(secretary);
+                counter = 0;
+            } else {
+                switch (counter){
+                    case 0:
+                        registry.concat(String.valueOf(character));
+                        break;
+                    case 1:
+                        name.concat(String.valueOf(character));
+                        break;
+                    case 2:
+                        email.concat(String.valueOf(character));
+                        break;
+                    case 3:
+                        password.concat(String.valueOf(character));
+                        break;
+                    case 4:
+                        status.concat(String.valueOf(character));
+                        break;
+                }
+            }
+            character = buffRead.read();
+        }
+        buffRead.close();
+    }
+
     //Delete full file
     public boolean deleteFile (String path){
         File file = new File(path);
@@ -425,6 +492,30 @@ public class ManipulationFile {
         return false;
     }
 
+    public boolean deleteSecretary(String registry, ArrayList<Secretary> secretaries) throws IOException {
+        int index;
+        int cont = 0;
+        //delete file
+        if(deleteFile("secretary.txt")) {
+            index = searchSecretary(registry, secretaries);
+            if (index != -1) {
+                for (Secretary t : secretaries) {
+                    if (cont != index) {
+                        writeSecretary(t);
+                    } else {
+                        System.out.println(t.toString() + "\nSecretary was deleted.");
+                    }
+                }
+                return true;
+            } else {
+                System.out.println("Secretary not found.");
+                return false;
+            }
+        }
+        System.out.println("File not found.");
+        return false;
+    }
+
     //Edit file
     public boolean editMatter(String id, Matter matter, ArrayList<Matter> matters) throws IOException {
         int index = searchMatter(id, matters);
@@ -487,6 +578,24 @@ public class ManipulationFile {
             teachers.add(teacher);
             if(deleteTeacher(registry, teachers)){
                 writeTeacher(teacher);
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+
+    public boolean editSecretary(String registry, Secretary secretary, ArrayList<Secretary> secretaries) throws IOException {
+        int index = searchSecretary(registry, secretaries);
+        if (index == -1){
+            System.out.println("Secretary not found.");
+            return false;
+        }else {
+            secretaries.remove(index);
+            secretaries.add(secretary);
+            if(deleteSecretary(registry, secretaries)){
+                writeSecretary(secretary);
                 return true;
             }else{
                 return false;

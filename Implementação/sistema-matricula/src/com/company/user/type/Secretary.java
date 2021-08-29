@@ -10,4 +10,9 @@ public class Secretary extends User {
         super(name, email, password, registry);
     }
 
+    public Secretary(String name, String email, String password, String registry, String status) {
+        super(name, email, password, registry);
+        setTextStatus(status);
+    }
+
 }
