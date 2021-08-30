@@ -73,17 +73,6 @@ public abstract class User {
         }
     }
 
-    public boolean changePassword(String password01, String password02) {
-        if (password01 == password02){
-            setPassword(password01);
-            System.out.println("Password change successful.");
-            return true;
-        } else {
-            System.out.println("ATTENTION: Password change error.");
-            return false;
-        }
-    }
-
     public void inactiveUser() {
         setStatus(StatusUser.INACTIVE);
     }

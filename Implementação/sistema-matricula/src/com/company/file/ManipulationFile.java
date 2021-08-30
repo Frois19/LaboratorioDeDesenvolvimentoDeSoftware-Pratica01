@@ -94,6 +94,18 @@ public class ManipulationFile {
         return position;
     }
 
+    public int searchStudentPassword(String password, ArrayList<Student> students){
+        int position = -1;
+        int i = 0;
+        for(Student s: students){
+            if (s.getPassword().equals(password)){
+                position = i;
+            }
+            i++;
+        }
+        return position;
+    }
+
     public int searchClassroom(String id, ArrayList<Classroom> classrooms){
         int position = -1;
         int i = 0;
@@ -118,11 +130,35 @@ public class ManipulationFile {
         return position;
     }
 
+    public int searchTeacherPassword(String password, ArrayList<Teacher> teachers){
+        int position = -1;
+        int i = 0;
+        for(Teacher t: teachers){
+            if (t.getPassword().equals(password)){
+                position = i;
+            }
+            i++;
+        }
+        return position;
+    }
+
     public int searchSecretary(String registry, ArrayList<Secretary> secretaries){
         int position = -1;
         int i = 0;
-        for(Secretary t: secretaries){
-            if (t.getRegistry().equals(registry)){
+        for(Secretary s: secretaries){
+            if (s.getRegistry().equals(registry)){
+                position = i;
+            }
+            i++;
+        }
+        return position;
+    }
+
+    public int searchSecretaryPassword(String password, ArrayList<Secretary> secretaries){
+        int position = -1;
+        int i = 0;
+        for(Secretary s: secretaries){
+            if (s.getPassword().equals(password)){
                 position = i;
             }
             i++;
@@ -584,7 +620,7 @@ public class ManipulationFile {
         buffRead.close();
     }
 
-    // verificar se exist arquivo
+    // check file
     public boolean checkFile (String path){
         File file = new File(path);
         if (file.exists()){
@@ -611,20 +647,17 @@ public class ManipulationFile {
         if(deleteFile("matter.txt")){
             index = searchMatter(id, matters);
             if (index != -1) {
+                matters.remove(index);
                 for (Matter m : matters) {
-                    if (cont != index) {
-                        writeMatter(m);
-                    } else {
-                        System.out.println(m.toString() + "\nMatter was deleted.");
-                    }
+                    writeMatter(m);
                 }
                 return true;
             }else {
-                System.out.println("Matter not found.");
+                //System.out.println("Matter not found.");
                 return false;
             }
         }
-        System.out.println("File not found.");
+        //System.out.println("File not found.");
         return false;
     }
 
@@ -635,20 +668,17 @@ public class ManipulationFile {
         if(deleteFile("student.txt")) {
             index = searchStudent(registry, students);
             if (index != -1) {
+                students.remove(index);
                 for (Student s : students) {
-                    if (cont != index) {
-                        writeStudent(s);
-                    } else {
-                        System.out.println(s.toString() + "\nStudent was deleted.");
-                    }
+                    writeStudent(s);
                 }
                 return true;
             } else {
-                System.out.println("Student not found.");
+                //System.out.println("Student not found.");
                 return false;
             }
         }
-        System.out.println("File not found.");
+        //System.out.println("File not found.");
         return false;
     }
 
@@ -659,20 +689,17 @@ public class ManipulationFile {
         if(deleteFile("classroom.txt")) {
             index = searchClassroom(id, classrooms);
             if (index != -1) {
+                classrooms.remove(index);
                 for (Classroom c : classrooms) {
-                    if (cont != index) {
-                        writeClassroom(c);
-                    } else {
-                        System.out.println(c.toString() + "\nClassroom was deleted.");
-                    }
+                    writeClassroom(c);
                 }
                 return true;
             } else {
-                System.out.println("Classroom not found.");
+                //System.out.println("Classroom not found.");
                 return false;
             }
         }
-        System.out.println("File not found.");
+        //System.out.println("File not found.");
         return false;
     }
 
@@ -683,20 +710,17 @@ public class ManipulationFile {
         if(deleteFile("teacher.txt")) {
             index = searchTeacher(registry, teachers);
             if (index != -1) {
+                teachers.remove(index);
                 for (Teacher t : teachers) {
-                    if (cont != index) {
-                        writeTeacher(t);
-                    } else {
-                        System.out.println(t.toString() + "\nTeacher was deleted.");
-                    }
+                    writeTeacher(t);
                 }
                 return true;
             } else {
-                System.out.println("Teacher not found.");
+                //System.out.println("Teacher not found.");
                 return false;
             }
         }
-        System.out.println("File not found.");
+        //System.out.println("File not found.");
         return false;
     }
 
@@ -707,20 +731,17 @@ public class ManipulationFile {
         if(deleteFile("secretary.txt")) {
             index = searchSecretary(registry, secretaries);
             if (index != -1) {
+                secretaries.remove(index);
                 for (Secretary t : secretaries) {
-                    if (cont != index) {
-                        writeSecretary(t);
-                    } else {
-                        System.out.println(t.toString() + "\nSecretary was deleted.");
-                    }
+                    writeSecretary(t);
                 }
                 return true;
             } else {
-                System.out.println("Secretary not found.");
+                //System.out.println("Secretary not found.");
                 return false;
             }
         }
-        System.out.println("File not found.");
+        //System.out.println("File not found.");
         return false;
     }
 
@@ -745,7 +766,7 @@ public class ManipulationFile {
     public boolean editStudent(String registry, Student student, ArrayList<Student> students) throws IOException {
         int index = searchStudent(registry, students);
         if (index == -1){
-            System.out.println("Student not found.");
+            //System.out.println("Student not found.");
             return false;
         }else {
             students.remove(index);
@@ -792,7 +813,6 @@ public class ManipulationFile {
             }
         }
     }
-
 
     public boolean editSecretary(String registry, Secretary secretary, ArrayList<Secretary> secretaries) throws IOException {
         int index = searchSecretary(registry, secretaries);

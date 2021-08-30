@@ -21,7 +21,7 @@ public class Teacher extends User {
 
     public void addClassroom(Classroom classroom){
         classrooms.add(classroom);
-        System.out.println("Added classrom.");
+        //System.out.println("Added classrom.");
     }
 
     public String listClassrooms(){
@@ -58,10 +58,10 @@ public class Teacher extends User {
     public boolean deleteClassroom(String id){
         if (searchClassroom(id) != -1){
             classrooms.remove(searchClassroom(id));
-            System.out.println("Excluded classroom.");
+            //System.out.println("Excluded classroom.");
             return true;
         } else {
-            System.out.println("Classroom not found.");
+            //System.out.println("Classroom not found.");
             return false;
         }
     }
@@ -70,7 +70,7 @@ public class Teacher extends User {
         if (searchClassroom(id) != -1){
             return classrooms.get(searchClassroom(id)).listStudents();
         } else {
-            System.out.println("Classroom not found.");
+            //System.out.println("Classroom not found.");
             return "";
         }
     }

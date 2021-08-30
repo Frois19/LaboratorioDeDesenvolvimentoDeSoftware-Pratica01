@@ -20,10 +20,10 @@ public class Student extends User {
     public boolean addMatter(Matter matter){
         if (matters.size()<4) {
             matters.add(matter);
-            System.out.println("Added matter.");
+            //System.out.println("Added matter.");
             return true;
         } else {
-            System.out.println("Matter not added.");
+            //System.out.println("Matter not added.");
             return false;
         }
     }
@@ -62,10 +62,10 @@ public class Student extends User {
     public boolean deleteMatter(String id){
         if (searchMatter(id) != -1){
             matters.remove(searchMatter(id));
-            System.out.println("Excluded matter.");
+            //System.out.println("Excluded matter.");
             return true;
         } else {
-            System.out.println("Matter not found.");
+            //System.out.println("Matter not found.");
             return false;
         }
     }

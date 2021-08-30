@@ -9,8 +9,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         ManipulationMenu menu = new ManipulationMenu();
-
-        menu.menuSystem();
+        int userType = 0;
+        menu.menuOptions();
     }
 
 }

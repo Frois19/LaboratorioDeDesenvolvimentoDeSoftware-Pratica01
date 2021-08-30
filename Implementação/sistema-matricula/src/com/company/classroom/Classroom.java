@@ -107,7 +107,7 @@ public class Classroom {
 
     public void addStudent(Student student){
         students.add(student);
-        System.out.println("Added student.");
+        //System.out.println("Added student.");
     }
 
     public String listStudents(){
@@ -144,10 +144,10 @@ public class Classroom {
     public boolean deleteStudent(String registry){
         if (searchStudent(registry) != -1){
             students.remove(searchStudent(registry));
-            System.out.println("Excluded student.");
+            //System.out.println("Excluded student.");
             return true;
         } else {
-            System.out.println("Student not found.");
+            //System.out.println("Student not found.");
             return false;
         }
     }
