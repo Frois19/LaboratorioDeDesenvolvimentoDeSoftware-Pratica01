@@ -122,7 +122,7 @@ public class Classroom {
         String listStudents = "";
         int position = 0;
         for(Student s: students){
-            listStudents=listStudents.concat(s.getRegistry() + ",#");
+            listStudents=listStudents.concat(s.getId() + ",#");
             position++;
         }
         listStudents=listStudents.concat(";");
@@ -133,7 +133,7 @@ public class Classroom {
         int position = -1;
         int i = 0;
         for(Student s: students){
-            if (s.getRegistry().equals(registry)){
+            if (s.getId().equals(registry)){
                 position = i;
             }
             i++;

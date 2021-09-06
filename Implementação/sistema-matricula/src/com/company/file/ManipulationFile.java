@@ -13,161 +13,116 @@ import java.util.ArrayList;
 public class ManipulationFile {
 
     //Write in files
-    public void writeMatter(Matter matter) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("matter.txt", true));
-        buffWrite.append(matter.textFile());
-        buffWrite.close();
-    }
-
-    public void writeStudent(Student student) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("student.txt", true));
-        buffWrite.append(student.textFile());
-        buffWrite.close();
-    }
-
-    public void writeClassroom(Classroom classroom) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("classroom.txt", true));
-        buffWrite.append(classroom.textFile());
-        buffWrite.close();
-    }
-
-    public void writeTeacher(Teacher teacher) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("teacher.txt", true));
-        buffWrite.append(teacher.textFile());
-        buffWrite.close();
-    }
-
-    public void writeSecretary(Secretary secretary) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("secretary.txt", true));
-        buffWrite.append(secretary.textFile());
-        buffWrite.close();
+    public void writeFile(Object object) throws IOException {
+        if (object instanceof Matter){
+            BufferedWriter buffWrite = new BufferedWriter(new FileWriter("matter.txt", true));
+            Matter matter = (Matter)object;
+            buffWrite.append(matter.textFile());
+            buffWrite.close();
+        } else if (object instanceof Student){
+            BufferedWriter buffWrite = new BufferedWriter(new FileWriter("student.txt", true));
+            Student student = (Student)object;
+            buffWrite.append(student.textFile());
+            buffWrite.close();
+        } else if (object instanceof Classroom){
+            BufferedWriter buffWrite = new BufferedWriter(new FileWriter("classroom.txt", true));
+            Classroom classroom = (Classroom)object;
+            buffWrite.append(classroom.textFile());
+            buffWrite.close();
+        } else if (object instanceof Teacher){
+            BufferedWriter buffWrite = new BufferedWriter(new FileWriter("teacher.txt", true));
+            Teacher teacher = (Teacher)object;
+            buffWrite.append(teacher.textFile());
+            buffWrite.close();
+        } else if (object instanceof Secretary){
+            BufferedWriter buffWrite = new BufferedWriter(new FileWriter("secretary.txt", true));
+            Secretary secretary = (Secretary)object;
+            buffWrite.append(secretary.textFile());
+            buffWrite.close();
+        }
     }
 
     //Adding to lists and write in files
-    public void addMatter(Matter matter, ArrayList<Matter> matters) throws IOException {
-        writeMatter(matter);
-        matters.add(matter);
+    public void addObject(Object object, ArrayList<Object> objects) throws IOException {
+        if (object instanceof Matter){
+            Matter matter = (Matter)object;
+            writeFile(matter);
+            objects.add(matter);
+        } else if (object instanceof Student){
+            Student student = (Student)object;
+            writeFile(student);
+            objects.add(student);
+        } else if (object instanceof Classroom){
+            Classroom classroom = (Classroom)object;
+            writeFile(classroom);
+            objects.add(classroom);
+        } else if (object instanceof Teacher){
+            Teacher teacher = (Teacher)object;
+            writeFile(teacher);
+            objects.add(teacher);
+        } else if (object instanceof Secretary){
+            Secretary secretary = (Secretary)object;
+            writeFile(secretary);
+            objects.add(secretary);
+        }
     }
-
-    public void addStudent(Student student, ArrayList<Student> students) throws IOException {
-        writeStudent(student);
-        students.add(student);
-    }
-
-    public void addClassroom(Classroom classroom, ArrayList<Classroom> classrooms) throws IOException {
-        writeClassroom(classroom);
-        classrooms.add(classroom);
-    }
-
-    public void addTeacher(Teacher teacher, ArrayList<Teacher> teachers) throws IOException {
-        writeTeacher(teacher);
-        teachers.add(teacher);
-    }
-
-    public void addSecretary(Secretary secretary, ArrayList<Secretary> secretaries) throws IOException {
-        writeSecretary(secretary);
-        secretaries.add(secretary);
-    }
-
     //Search arrays
-    public int searchMatter(String id, ArrayList<Matter> matters){
+    public int searchObject(String id, ArrayList<Object> objects){
         int position = -1;
-        int i = 0;
-        for(Matter m: matters){
-            if (m.getId().equals(id)){
-                position = i;
+        if (objects.get(0) instanceof Matter){
+            Matter matter = null;
+            for (int i = 0; i < objects.size(); i++){
+                matter = (Matter) objects.get(i);
+                if (matter.getId().equals(id)){
+                    position = i;
+                }
             }
-            i++;
-        }
-        return position;
-    }
-
-    public int searchStudent(String registry, ArrayList<Student> students){
-        int position = -1;
-        int i = 0;
-        for(Student s: students){
-            if (s.getRegistry().equals(registry)){
-                position = i;
+        } else if (objects.get(0) instanceof Student){
+            Student student = null;
+            for (int i = 0; i < objects.size(); i++){
+                student = (Student) objects.get(i);
+                if (student.getId().equals(id)){
+                    position = i;
+                }
             }
-            i++;
-        }
-        return position;
-    }
-
-    public int searchStudentPassword(String password, ArrayList<Student> students){
-        int position = -1;
-        int i = 0;
-        for(Student s: students){
-            if (s.getPassword().equals(password)){
-                position = i;
+        } else if (objects.get(0) instanceof Classroom){
+            Classroom classroom = null;
+            for (int i = 0; i < objects.size(); i++){
+                classroom = (Classroom) objects.get(i);
+                if (classroom.getId().equals(id)){
+                    position = i;
+                }
             }
-            i++;
-        }
-        return position;
-    }
-
-    public int searchClassroom(String id, ArrayList<Classroom> classrooms){
-        int position = -1;
-        int i = 0;
-        for(Classroom c: classrooms){
-            if (c.getId().equals(id)){
-                position = i;
+        } else if (objects.get(0) instanceof Teacher){
+            Teacher teacher = null;
+            for (int i = 0; i < objects.size(); i++){
+                teacher = (Teacher) objects.get(i);
+                if (teacher.getId().equals(id)){
+                    position = i;
+                }
             }
-            i++;
-        }
-        return position;
-    }
-
-    public int searchTeacher(String registry, ArrayList<Teacher> teachers){
-        int position = -1;
-        int i = 0;
-        for(Teacher t: teachers){
-            if (t.getRegistry().equals(registry)){
-                position = i;
+        } else if (objects.get(0) instanceof Secretary){
+            Secretary secretary = null;
+            for (int i = 0; i < objects.size(); i++){
+                secretary = (Secretary) objects.get(i);
+                if (secretary.getId().equals(id)){
+                    position = i;
+                }
             }
-            i++;
-        }
-        return position;
-    }
-
-    public int searchTeacherPassword(String password, ArrayList<Teacher> teachers){
-        int position = -1;
-        int i = 0;
-        for(Teacher t: teachers){
-            if (t.getPassword().equals(password)){
-                position = i;
-            }
-            i++;
-        }
-        return position;
-    }
-
-    public int searchSecretary(String registry, ArrayList<Secretary> secretaries){
-        int position = -1;
-        int i = 0;
-        for(Secretary s: secretaries){
-            if (s.getRegistry().equals(registry)){
-                position = i;
-            }
-            i++;
-        }
-        return position;
-    }
-
-    public int searchSecretaryPassword(String password, ArrayList<Secretary> secretaries){
-        int position = -1;
-        int i = 0;
-        for(Secretary s: secretaries){
-            if (s.getPassword().equals(password)){
-                position = i;
-            }
-            i++;
         }
         return position;
     }
 
     //Read files and fill lists
-    public void readMatterFile(ArrayList<Matter> matters) throws IOException {
+    public void readFiles(ArrayList<Object> matters, ArrayList<Object> students, ArrayList<Object> classrooms, ArrayList<Object> teachers, ArrayList<Object> secretaries) throws IOException{
+        readMatterFile(matters);
+        readStudentFile(matters, students);
+        readClassroomFile(matters, students, classrooms);
+        readTeacherFile(classrooms, teachers);
+        readSecretaryFile(secretaries);
+    }
+
+    public void readMatterFile(ArrayList<Object> matters) throws IOException {
         ArrayList<String> id = new ArrayList();
         ArrayList<String> name = new ArrayList();
         ArrayList<String> credits = new ArrayList();
@@ -229,20 +184,19 @@ public class ManipulationFile {
                         }
                 }
             }
-
             character = buffRead.read();
         }
         buffRead.close();
     }
 
-    public void readStudentFile(ArrayList<Matter> matters, ArrayList<Student> students) throws IOException {
+    public void readStudentFile(ArrayList<Object> matters, ArrayList<Object> students) throws IOException {
         ArrayList<String> name = new ArrayList();
         ArrayList<String> email = new ArrayList();
         ArrayList<String> password = new ArrayList();
-        ArrayList<String> registry = new ArrayList();
+        ArrayList<String> id = new ArrayList();
         ArrayList<String> status = new ArrayList();
         ArrayList<String> idMatter = new ArrayList();
-        ArrayList<Matter> mattersTemp = new ArrayList();
+        ArrayList<Object> mattersTemp = new ArrayList();
         mattersTemp.clear();
 
 
@@ -252,7 +206,7 @@ public class ManipulationFile {
         String nameAux = "";
         String emailAux = "";
         String passwordAux = "";
-        String registryAux = "";
+        String idAux = "";
         String statusAux = "";
         String idMatterAux = "";
 
@@ -266,12 +220,12 @@ public class ManipulationFile {
             if (";".equals(String.valueOf((char) character))) {
                 counter++;
             } else if ("\n".equals(String.valueOf((char) character))) {
-                Student student = new Student(name.get(i), email.get(i), password.get(i), registry.get(i), status.get(i));
+                Student student = new Student(name.get(i), email.get(i), password.get(i), id.get(i), status.get(i));
                 for(String array: idMatter){
-                    mattersTemp.add(matters.get(searchMatter(array, matters)));
+                    mattersTemp.add(matters.get(searchObject(array, matters)));
                 }
-                for (Matter m: mattersTemp){
-                    student.addMatter(m);
+                for (Object m: mattersTemp){
+                    student.addMatter((Matter) m);
                 }
                 students.add(student);
                 counter = 0;
@@ -280,7 +234,7 @@ public class ManipulationFile {
                 nameAux = "";
                 emailAux = "";
                 passwordAux = "";
-                registryAux = "";
+                idAux = "";
                 statusAux = "";
                 idMatterAux = "";
                 idMatter.clear();
@@ -289,9 +243,9 @@ public class ManipulationFile {
                 switch (counter){
                     case 0:
                         if(",".equals(String.valueOf((char) character))){
-                            registry.add(registryAux);
+                            id.add(idAux);
                         } else {
-                            registryAux = registryAux.concat(String.valueOf((char) character));
+                            idAux = idAux.concat(String.valueOf((char) character));
                         }
                         break;
                     case 1:
@@ -338,9 +292,9 @@ public class ManipulationFile {
         buffRead.close();
     }
 
-    public void readClassroomFile(ArrayList<Matter> matters, ArrayList<Student> students, ArrayList<Classroom> classrooms) throws IOException {
+    public void readClassroomFile(ArrayList<Object> matters, ArrayList<Object> students, ArrayList<Object> classrooms) throws IOException {
         ArrayList<String> idMatter = new ArrayList();
-        ArrayList<Matter> mattersTemp = new ArrayList();
+        ArrayList<Object> mattersTemp = new ArrayList();
         mattersTemp.clear();
         ArrayList<String> id = new ArrayList();
         ArrayList<String> name = new ArrayList();
@@ -366,11 +320,11 @@ public class ManipulationFile {
             if (";".equals(String.valueOf((char) character))) {
                 counter++;
             } else if ("\n".equals(String.valueOf((char) character))) {
-                index = searchMatter(idMatter.get(i), matters);
+                index = searchObject(idMatter.get(i), matters);
                 mattersTemp.add(matters.get(0));
-                Classroom classroom = new Classroom(mattersTemp.get(i), id.get(i), name.get(i), semester.get(i), shift.get(i));
+                Classroom classroom = new Classroom((Matter)mattersTemp.get(i), id.get(i), name.get(i), semester.get(i), shift.get(i));
                 for (String array: idStudent){
-                    studentsTemp.add(students.get(searchStudent(array,students)));
+                    studentsTemp.add((Student) students.get(searchObject(array,students)));
                 }
                 for (Student s: studentsTemp){
                     classroom.addStudent(s);
@@ -440,11 +394,11 @@ public class ManipulationFile {
         buffRead.close();
     }
 
-    public void readTeacherFile(ArrayList<Classroom> classrooms, ArrayList<Teacher> teachers) throws IOException {
+    public void readTeacherFile(ArrayList<Object> classrooms, ArrayList<Object> teachers) throws IOException {
         ArrayList<String> name = new ArrayList();
         ArrayList<String> email = new ArrayList();
         ArrayList<String> password = new ArrayList();
-        ArrayList<String> registry = new ArrayList();
+        ArrayList<String> id = new ArrayList();
         ArrayList<String> status = new ArrayList();
         ArrayList<String> idClassroom = new ArrayList();
         ArrayList<Classroom> classroomsTemp = new ArrayList();
@@ -455,7 +409,7 @@ public class ManipulationFile {
         String nameAux = "";
         String emailAux = "";
         String passwordAux = "";
-        String registryAux = "";
+        String idAux = "";
         String statusAux = "";
         String idClassroomAux = "";
 
@@ -469,9 +423,9 @@ public class ManipulationFile {
             if (";".equals(String.valueOf((char) character))) {
                 counter++;
             } else if ("\n".equals(String.valueOf((char) character))) {
-                Teacher teacher = new Teacher(name.get(i), email.get(i), password.get(i), registry.get(i), status.get(i));
+                Teacher teacher = new Teacher(name.get(i), email.get(i), password.get(i), id.get(i), status.get(i));
                 for(String array : idClassroom){
-                    classroomsTemp.add(classrooms.get(searchClassroom(array,classrooms)));
+                    classroomsTemp.add((Classroom) classrooms.get(searchObject(array,classrooms)));
                 }
                 for (Classroom c: classroomsTemp){
                     teacher.addClassroom(c);
@@ -483,7 +437,7 @@ public class ManipulationFile {
                 nameAux = "";
                 emailAux = "";
                 passwordAux = "";
-                registryAux = "";
+                idAux = "";
                 statusAux = "";
                 idClassroomAux = "";
                 classroomsTemp.clear();
@@ -492,9 +446,9 @@ public class ManipulationFile {
                 switch (counter){
                     case 0:
                         if(",".equals(String.valueOf((char) character))){
-                            registry.add(registryAux);
+                            id.add(idAux);
                         } else {
-                            registryAux = registryAux.concat(String.valueOf((char) character));
+                            idAux = idAux.concat(String.valueOf((char) character));
                         }
                         break;
                     case 1:
@@ -541,11 +495,11 @@ public class ManipulationFile {
         buffRead.close();
     }
 
-    public void readSecretaryFile(ArrayList<Secretary> secretaries) throws IOException {
+    public void readSecretaryFile(ArrayList<Object> secretaries) throws IOException {
         ArrayList<String> name = new ArrayList();
         ArrayList<String> email = new ArrayList();
         ArrayList<String> password = new ArrayList();
-        ArrayList<String> registry = new ArrayList();
+        ArrayList<String> id = new ArrayList();
         ArrayList<String> status = new ArrayList();
 
         int i = 0;
@@ -553,7 +507,7 @@ public class ManipulationFile {
         String nameAux = "";
         String emailAux = "";
         String passwordAux = "";
-        String registryAux = "";
+        String idAux = "";
         String statusAux = "";
 
         int index = 0;
@@ -566,7 +520,7 @@ public class ManipulationFile {
             if (";".equals(String.valueOf((char) character))) {
                 counter++;
             } else if ("\n".equals(String.valueOf((char) character))) {
-                Secretary secretary = new Secretary(name.get(i), email.get(i), password.get(i), registry.get(i), status.get(i));
+                Secretary secretary = new Secretary(name.get(i), email.get(i), password.get(i), id.get(i), status.get(i));
                 secretaries.add(secretary);
                 counter = 0;
                 i++;
@@ -574,15 +528,15 @@ public class ManipulationFile {
                 nameAux = "";
                 emailAux = "";
                 passwordAux = "";
-                registryAux = "";
+                idAux = "";
                 statusAux = "";
             } else {
                 switch (counter){
                     case 0:
                         if(",".equals(String.valueOf((char) character))) {
-                            registry.add(registryAux);
+                            id.add(idAux);
                         }else{
-                            registryAux = registryAux.concat(String.valueOf((char) character));
+                            idAux = idAux.concat(String.valueOf((char) character));
                         }
                         break;
                     case 1:
@@ -640,195 +594,81 @@ public class ManipulationFile {
     }
 
     //Delete in files
-    public boolean deleteMatter(String id, ArrayList<Matter> matters) throws IOException {
+    public boolean deleteObject(String id, ArrayList<Object> objects) throws IOException {
         int index;
         int cont = 0;
         //delete file
-        if(deleteFile("matter.txt")){
-            index = searchMatter(id, matters);
-            if (index != -1) {
-                matters.remove(index);
-                for (Matter m : matters) {
-                    writeMatter(m);
+        if (objects.get(0) instanceof Matter){
+            if(deleteFile("matter.txt")){
+                index = searchObject(id, objects);
+                if (index != -1) {
+                    objects.remove(index);
+                    for (Object obj : objects) {
+                        writeFile((Matter) obj);
+                    }
+                    return true;
+                }else {
+                    //System.out.println("Matter not found.");
+                    return false;
                 }
-                return true;
-            }else {
-                //System.out.println("Matter not found.");
-                return false;
+            }
+        } else if (objects.get(0) instanceof Student){
+            if(deleteFile("student.txt")){
+                index = searchObject(id, objects);
+                if (index != -1) {
+                    objects.remove(index);
+                    for (Object obj : objects) {
+                        writeFile((Student) obj);
+                    }
+                    return true;
+                }else {
+                    //System.out.println("Matter not found.");
+                    return false;
+                }
+            }
+        } else if (objects.get(0) instanceof Classroom){
+            if(deleteFile("classroom.txt")){
+                index = searchObject(id, objects);
+                if (index != -1) {
+                    objects.remove(index);
+                    for (Object obj : objects) {
+                        writeFile((Classroom) obj);
+                    }
+                    return true;
+                }else {
+                    //System.out.println("Matter not found.");
+                    return false;
+                }
+            }
+        } else if (objects.get(0) instanceof Teacher){
+            if(deleteFile("teacher.txt")){
+                index = searchObject(id, objects);
+                if (index != -1) {
+                    objects.remove(index);
+                    for (Object obj : objects) {
+                        writeFile((Teacher) obj);
+                    }
+                    return true;
+                }else {
+                    //System.out.println("Matter not found.");
+                    return false;
+                }
+            }
+        } else if (objects.get(0) instanceof Secretary){
+            if(deleteFile("secretary.txt")){
+                index = searchObject(id, objects);
+                if (index != -1) {
+                    objects.remove(index);
+                    for (Object obj : objects) {
+                        writeFile((Secretary) obj);
+                    }
+                    return true;
+                }else {
+                    //System.out.println("Matter not found.");
+                    return false;
+                }
             }
         }
-        //System.out.println("File not found.");
         return false;
     }
-
-    public boolean deleteStudent(String registry, ArrayList<Student> students) throws IOException {
-        int index;
-        int cont = 0;
-        //delete file
-        if(deleteFile("student.txt")) {
-            index = searchStudent(registry, students);
-            if (index != -1) {
-                students.remove(index);
-                for (Student s : students) {
-                    writeStudent(s);
-                }
-                return true;
-            } else {
-                //System.out.println("Student not found.");
-                return false;
-            }
-        }
-        //System.out.println("File not found.");
-        return false;
-    }
-
-    public boolean deleteClassroom(String id, ArrayList<Classroom> classrooms) throws IOException {
-        int index;
-        int cont = 0;
-        //delete file
-        if(deleteFile("classroom.txt")) {
-            index = searchClassroom(id, classrooms);
-            if (index != -1) {
-                classrooms.remove(index);
-                for (Classroom c : classrooms) {
-                    writeClassroom(c);
-                }
-                return true;
-            } else {
-                //System.out.println("Classroom not found.");
-                return false;
-            }
-        }
-        //System.out.println("File not found.");
-        return false;
-    }
-
-    public boolean deleteTeacher(String registry, ArrayList<Teacher> teachers) throws IOException {
-        int index;
-        int cont = 0;
-        //delete file
-        if(deleteFile("teacher.txt")) {
-            index = searchTeacher(registry, teachers);
-            if (index != -1) {
-                teachers.remove(index);
-                for (Teacher t : teachers) {
-                    writeTeacher(t);
-                }
-                return true;
-            } else {
-                //System.out.println("Teacher not found.");
-                return false;
-            }
-        }
-        //System.out.println("File not found.");
-        return false;
-    }
-
-    public boolean deleteSecretary(String registry, ArrayList<Secretary> secretaries) throws IOException {
-        int index;
-        int cont = 0;
-        //delete file
-        if(deleteFile("secretary.txt")) {
-            index = searchSecretary(registry, secretaries);
-            if (index != -1) {
-                secretaries.remove(index);
-                for (Secretary t : secretaries) {
-                    writeSecretary(t);
-                }
-                return true;
-            } else {
-                //System.out.println("Secretary not found.");
-                return false;
-            }
-        }
-        //System.out.println("File not found.");
-        return false;
-    }
-
-    //Edit file
-    public boolean editMatter(String id, Matter matter, ArrayList<Matter> matters) throws IOException {
-        int index = searchMatter(id, matters);
-        if (index == -1){
-            System.out.println("Matter not found.");
-            return false;
-        }else {
-            matters.remove(index);
-            matters.add(matter);
-            if(deleteMatter(id, matters)){
-                writeMatter(matter);
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-
-    public boolean editStudent(String registry, Student student, ArrayList<Student> students) throws IOException {
-        int index = searchStudent(registry, students);
-        if (index == -1){
-            //System.out.println("Student not found.");
-            return false;
-        }else {
-            students.remove(index);
-            students.add(student);
-            if(deleteStudent(registry, students)){
-                writeStudent(student);
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-
-    public boolean editClassroom(String id, Classroom classroom, ArrayList<Classroom> classrooms) throws IOException {
-        int index = searchClassroom(id, classrooms);
-        if (index == -1){
-            System.out.println("Classroom not found.");
-            return false;
-        }else {
-            classrooms.remove(index);
-            classrooms.add(classroom);
-            if(deleteClassroom(id, classrooms)){
-                writeClassroom(classroom);
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-
-    public boolean editTeacher(String registry, Teacher teacher, ArrayList<Teacher> teachers) throws IOException {
-        int index = searchTeacher(registry, teachers);
-        if (index == -1){
-            System.out.println("Teacher not found.");
-            return false;
-        }else {
-            teachers.remove(index);
-            teachers.add(teacher);
-            if(deleteTeacher(registry, teachers)){
-                writeTeacher(teacher);
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-
-    public boolean editSecretary(String registry, Secretary secretary, ArrayList<Secretary> secretaries) throws IOException {
-        int index = searchSecretary(registry, secretaries);
-        if (index == -1){
-            System.out.println("Secretary not found.");
-            return false;
-        }else {
-            secretaries.remove(index);
-            secretaries.add(secretary);
-            if(deleteSecretary(registry, secretaries)){
-                writeSecretary(secretary);
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-    
 }

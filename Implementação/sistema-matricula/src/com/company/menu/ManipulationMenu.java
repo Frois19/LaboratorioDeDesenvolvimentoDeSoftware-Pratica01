@@ -56,114 +56,127 @@ public class ManipulationMenu {
     }
 
     public void loginSecretary() throws IOException {
-        ArrayList<Secretary> secretaries = new ArrayList<>();
         ManipulationFile file = new ManipulationFile();
         Scanner scan = new Scanner(System.in);
-        String registry, password;
-        int checkSecretaryRegistry, checkSecretaryPassword;
 
-        System.out.println("Enter your register");
-        registry = scan.next();
-        System.out.println("Enter your password");
-        password = scan.next();
+        ArrayList<Object> matters = new ArrayList<>();
+        ArrayList<Object> students = new ArrayList<>();
+        ArrayList<Object> classrooms = new ArrayList<>();
+        ArrayList<Object> teachers = new ArrayList<>();
+        ArrayList<Object> secretaries = new ArrayList<>();
 
-        file.readSecretaryFile(secretaries);
-        checkSecretaryRegistry = file.searchSecretary(registry, secretaries);
-        checkSecretaryPassword = file.searchSecretaryPassword(password, secretaries);
+        file.readFiles(matters, students, classrooms, teachers, secretaries);
 
-        if (checkSecretaryRegistry != -1 && checkSecretaryPassword != -1) {
-            optionSecretary();
-        } else {
-            System.out.println("Register or password not found, incorrect");
+        Secretary secretary = null;
+        String id = null;
+        String password = null;
+        int aux = 0;
+
+        while (aux == 0) {
+            System.out.println("Enter your id");
+            id = scan.next();
+            int index = file.searchObject(id, secretaries);
+            if (index != -1) {
+                secretary = (Secretary) secretaries.get(index);
+                System.out.println("Enter your password");
+                password = scan.next();
+                if (password.equals(secretary.getPassword())) {
+                    aux = 1;
+                } else {
+                    System.out.println("Incorrect password");
+                    loginSecretary();
+                }
+            } else {
+                System.out.println("Registry not found");
+            }
         }
+        optionsSecretary();
 
     }
 
-    public void optionSecretary() throws IOException {
-        ArrayList<Matter> matters = new ArrayList<>();
-        ArrayList<Student> students = new ArrayList<>();
-        ArrayList<Classroom> classrooms = new ArrayList<>();
-        ArrayList<Teacher> teachers = new ArrayList<>();
-        ArrayList<Secretary> secretaries = new ArrayList<>();
+    public void optionsSecretary() throws IOException {
+        int actionOption = 0;
+        int actorOption = 0;
+        Scanner scan = new Scanner(System.in);
+        while (actionOption < 1 || actionOption > 2) {
+            System.out.println("What do you want to do: \n[1] - Register \n[2] - Remove");
+            actionOption = scan.nextInt();
+        }
+        while (actorOption < 1 || actorOption > 5) {
+            System.out.println("Who do you want: \n[1] - Student \n[2] - Teacher \n[3] - Secretary  \n[4] - Matter  \n[5] - Classroom");
+            actorOption = scan.nextInt();
+        }
+        if (actionOption == 1) {
+            optionSecretaryRegister(actorOption);
+        } else {
+            optionSecretaryRemove(actorOption);
+        }
+    }
+
+    public void optionSecretaryRegister(int actorOption) throws IOException {
 
 
         ManipulationFile file = new ManipulationFile();
-        file.readSecretaryFile(secretaries);
-        file.readMatterFile(matters);
-        file.readStudentFile(matters, students);
-        file.readClassroomFile(matters, students, classrooms);
-        file.readTeacherFile(classrooms, teachers);
+
+        ArrayList<Object> matters = new ArrayList<>();
+        ArrayList<Object> students = new ArrayList<>();
+        ArrayList<Object> classrooms = new ArrayList<>();
+        ArrayList<Object> teachers = new ArrayList<>();
+        ArrayList<Object> secretaries = new ArrayList<>();
+
+        file.readFiles(matters, students, classrooms, teachers, secretaries);
+
 
         Scanner scan = new Scanner(System.in);
-        int actionOption, actorOption, option;
 
-        String name, email, password, registry, id, matterId;
-        int  credits, positionMatter, checkRegister;
-        int typeMatter =0;
-        int typeShift= 0;
+        String name = null, email = null, password = null, id = null, matterId = null;
+        int credits, positionMatter, checkRegister;
+        int typeMatter = 0;
+        int typeShift = 0;
         int typeSemester = 0;
 
-        actionOption = (action0ptionsSecretary() * 10);
-        actorOption = actor0ptionsSecretary();
-        option = actionOption + actorOption;
-
-
-        switch (option) {
-            case 11:
-                System.out.println("Enter your name");
-                name = scan.next();
-                System.out.println("Enter your email");
-                email = scan.next();
-                System.out.println("Enter your password");
-                password = scan.next();
-                System.out.println("Enter your registry");
-                registry = scan.next();
-                checkRegister = file.searchStudent(registry, students);
-                if(checkRegister==-1){
-                    Student student = new Student(name, email, password, registry);
-                    file.addStudent(student, students);
+        if (actorOption <= 3) {
+            System.out.println("Enter your name");
+            name = scan.next();
+            System.out.println("Enter your email");
+            email = scan.next();
+            System.out.println("Enter your password");
+            password = scan.next();
+            System.out.println("Enter your id");
+            id = scan.next();
+        }
+        switch (actorOption) {
+            case 1:
+                checkRegister = file.searchObject(id, students);
+                if (checkRegister == -1) {
+                    Student student = new Student(name, email, password, id);
+                    file.addObject(student, students);
                     System.out.println("Successfully registered");
-                }else{
+                } else {
                     System.out.println("Registry already exists, please use another");
                 }
                 break;
-            case 12:
-                System.out.println("Enter your name");
-                name = scan.next();
-                System.out.println("Enter your email");
-                email = scan.next();
-                System.out.println("Enter your password");
-                password = scan.next();
-                System.out.println("Enter your registry");
-                registry = scan.next();
-                checkRegister = file.searchTeacher(registry, teachers);
-                if(checkRegister==-1){
-                    Teacher teacher = new Teacher(name, email, password, registry);
-                    file.addTeacher(teacher, teachers);
+            case 2:
+                checkRegister = file.searchObject(id, teachers);
+                if (checkRegister == -1) {
+                    Teacher teacher = new Teacher(name, email, password, id);
+                    file.addObject(teacher, teachers);
                     System.out.println("Successfully registered");
-                }else{
+                } else {
                     System.out.println("Registry already exists, please use another");
                 }
                 break;
-            case 13:
-                System.out.println("Enter your name");
-                name = scan.next();
-                System.out.println("Enter your email");
-                email = scan.next();
-                System.out.println("Enter your password");
-                password = scan.next();
-                System.out.println("Enter your registry");
-                registry = scan.next();
-                checkRegister = file.searchSecretary(registry, secretaries);
-                if(checkRegister==-1){
-                    Secretary secretary = new Secretary(name, email, password, registry);
-                    file.addSecretary(secretary, secretaries);
+            case 3:
+                checkRegister = file.searchObject(id, secretaries);
+                if (checkRegister == -1) {
+                    Secretary secretary = new Secretary(name, email, password, id);
+                    file.addObject(secretary, secretaries);
                     System.out.println("Successfully registered");
-                }else{
+                } else {
                     System.out.println("Registry already exists, please use another");
                 }
                 break;
-            case 14:
+            case 4:
                 System.out.println("Enter the name");
                 name = scan.next();
                 System.out.println("Enter the credits");
@@ -174,160 +187,158 @@ public class ManipulationMenu {
                 }
                 System.out.println("Enter the id");
                 id = scan.next();
-                checkRegister = file.searchMatter(id, matters);
-                if(checkRegister==-1){
-                    if(typeMatter==1){
+                checkRegister = file.searchObject(id, matters);
+                if (checkRegister == -1) {
+                    if (typeMatter == 1) {
                         Matter matter = new Matter(name, id, credits, MatterType.MANDATORY);
-                        file.addMatter(matter, matters);
-                    }else if(typeMatter==2){
+                        file.addObject(matter, matters);
+                    } else if (typeMatter == 2) {
                         Matter matter = new Matter(name, id, credits, MatterType.OPTIONAL);
-                        file.addMatter(matter, matters);
+                        file.addObject(matter, matters);
                     }
                     System.out.println("Successfully registered");
-                }else{
+                } else {
                     System.out.println("Registry already exists, please use another");
                 }
                 break;
-            case 15:
-                if (file.checkFile("matter.txt")){
+            case 5:
+                if (file.checkFile("matter.txt")) {
                     System.out.println("Enter the matter id");
                     matterId = scan.next();
                     file.readMatterFile(matters);
-                    positionMatter = file.searchMatter(matterId, matters);
-                    if(positionMatter!=-1){
-                        Matter matter = new Matter(matters.get(positionMatter).getName(),matters.get(positionMatter).getId(), matters.get(positionMatter).getCredits(), matters.get(positionMatter).getType());
+                    positionMatter = file.searchObject(matterId, matters);
+                    if (positionMatter != -1) {
+                        Matter matter = (Matter) matters.get(file.searchObject(matterId, matters));
+                        //Matter matter = new Matter( (Matter) matters.get(positionMatter).getName(), matters.get(positionMatter).getId(), matters.get(positionMatter).getCredits(), matters.get(positionMatter).getType());
                         System.out.println("Enter your name");
                         name = scan.next();
-                        while(typeSemester < 1 || typeSemester > 2){
+                        while (typeSemester < 1 || typeSemester > 2) {
                             System.out.println("Enter your semester type: \n[1] - First \\n[2] - Second");
                             typeSemester = scan.nextInt();
                         }
-                        while(typeShift < 1 || typeShift > 2){
+                        while (typeShift < 1 || typeShift > 2) {
                             System.out.println("Enter your shift type: \n[1] - DayTime \\n[2] - Night");
                             typeShift = scan.nextInt();
                         }
                         System.out.println("Enter your id");
                         id = scan.next();
 
-                        checkRegister = file.searchClassroom(id, classrooms);
-                        if(checkRegister==-1){
-                            if(typeSemester==1 && typeShift==1){
+                        checkRegister = file.searchObject(id, classrooms);
+                        if (checkRegister == -1) {
+                            if (typeSemester == 1 && typeShift == 1) {
                                 Classroom classroom = new Classroom(matter, id, name, SemesterType.FIRST, ShiftType.DAYTIME);
-                                file.addClassroom(classroom, classrooms);
-                            }else if(typeSemester==1 && typeShift==2){
+                                file.addObject(classroom, classrooms);
+                            } else if (typeSemester == 1 && typeShift == 2) {
                                 Classroom classroom = new Classroom(matter, id, name, SemesterType.FIRST, ShiftType.NIGHT);
-                                file.addClassroom(classroom, classrooms);
-                            }else if(typeSemester==2 && typeShift==1){
+                                file.addObject(classroom, classrooms);
+                            } else if (typeSemester == 2 && typeShift == 1) {
                                 Classroom classroom = new Classroom(matter, id, name, SemesterType.SECOND, ShiftType.DAYTIME);
-                                file.addClassroom(classroom, classrooms);
-                            }else{
+                                file.addObject(classroom, classrooms);
+                            } else {
                                 Classroom classroom = new Classroom(matter, id, name, SemesterType.SECOND, ShiftType.NIGHT);
-                                file.addClassroom(classroom, classrooms);
+                                file.addObject(classroom, classrooms);
                             }
                             System.out.println("Successfully registered");
-                        }else{
+                        } else {
                             System.out.println("Registry already exists, please use another");
                         }
-                    }else {
+                    } else {
                         System.out.println("Id matter not found");
                     }
-                }else{
+                } else {
                     System.out.println("Matter not found please register one");
                 }
                 break;
-            case 21:
-                System.out.println("Enter your registry");
-                registry = scan.next();
-                if(file.deleteStudent(registry, students)){
-                    System.out.println("Successfully deleted");
-                }else{
-                    System.out.println("Failed to delete");
-                }
-                break;
-            case 22:
-                System.out.println("Enter your registry");
-                registry = scan.next();
-                if(file.deleteTeacher(registry, teachers)){
-                    System.out.println("Successfully deleted");
-                }else{
-                    System.out.println("Failed to delete");
-                }
-                break;
-            case 23:
-                System.out.println("Enter your registry");
-                registry = scan.next();
-                if(file.deleteSecretary(registry, secretaries)){
-                    System.out.println("Successfully deleted");
-                }else{
-                    System.out.println("Failed to delete");
-                }
-                break;
-            case 24:
-                System.out.println("Enter the id");
-                id = scan.next();
-                if(file.deleteMatter(id, matters)){
-                    System.out.println("Successfully deleted");
-                }else{
-                    System.out.println("Failed to delete");
-                }
-                break;
-            case 25:
-                System.out.println("Enter the id");
-                id = scan.next();
-                if(file.deleteClassroom(id, classrooms)){
-                    System.out.println("Successfully deleted");
-                }else{
-                    System.out.println("Failed to delete");
-                }
-                break;
         }
 
     }
 
-    public int action0ptionsSecretary() {
-        int actionOption = 0;
+    public void optionSecretaryRemove(int actorOption) throws IOException {
+
+        ManipulationFile file = new ManipulationFile();
+
+        ArrayList<Object> matters = new ArrayList<>();
+        ArrayList<Object> students = new ArrayList<>();
+        ArrayList<Object> classrooms = new ArrayList<>();
+        ArrayList<Object> teachers = new ArrayList<>();
+        ArrayList<Object> secretaries = new ArrayList<>();
+
+        file.readFiles(matters, students, classrooms, teachers, secretaries);
+
         Scanner scan = new Scanner(System.in);
-        System.out.println("What do you want to do: \n[1] - Register \n[2] - Remove");
-        actionOption = scan.nextInt();
-        while (actionOption < 1 || actionOption > 4) {
-            System.out.println("What do you want to do: \n[1] - Register \n[2] - Remove");
-            actionOption = scan.nextInt();
+        String id;
+
+        switch (actorOption) {
+            case 1:
+                System.out.println("Enter your id");
+                id = scan.next();
+                if (file.deleteObject(id, students)) {
+                    System.out.println("Successfully deleted");
+                } else {
+                    System.out.println("Failed to delete");
+                }
+                break;
+            case 2:
+                System.out.println("Enter your id");
+                id = scan.next();
+                if (file.deleteObject(id, teachers)) {
+                    System.out.println("Successfully deleted");
+                } else {
+                    System.out.println("Failed to delete");
+                }
+                break;
+            case 3:
+                System.out.println("Enter your id");
+                id = scan.next();
+                if (file.deleteObject(id, secretaries)) {
+                    System.out.println("Successfully deleted");
+                } else {
+                    System.out.println("Failed to delete");
+                }
+                break;
+            case 4:
+                System.out.println("Enter the id");
+                id = scan.next();
+                if (file.deleteObject(id, matters)) {
+                    System.out.println("Successfully deleted");
+                } else {
+                    System.out.println("Failed to delete");
+                }
+                break;
+            case 5:
+                System.out.println("Enter the id");
+                id = scan.next();
+                if (file.deleteObject(id, classrooms)) {
+                    System.out.println("Successfully deleted");
+                } else {
+                    System.out.println("Failed to delete");
+                }
+                break;
         }
-
-        return actionOption;
-    }
-
-
-    public int actor0ptionsSecretary() {
-        int actorOption = 0;
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Who do you want: \n[1] - Student \n[2] - Teacher \n[3] - Secretary  \n[4] - Matter  \n[5] - Classroom");
-        actorOption = scan.nextInt();
-        while (actorOption < 1 || actorOption > 5) {
-            System.out.println("Who do you want: \n[1] - Student \n[2] - Teacher \n[3] - Secretary  \n[4] - Matter  \n[5] - Classroom");
-            actorOption = scan.nextInt();
-        }
-
-        return actorOption;
     }
 
     public void loginStudents() throws IOException {
         Scanner scan = new Scanner(System.in);
         ManipulationFile file = new ManipulationFile();
-        ArrayList<Matter> matters = new ArrayList<>();
-        file.readMatterFile(matters);
-        ArrayList<Student> students = new ArrayList<>();
-        file.readStudentFile(matters, students);
+
+        ArrayList<Object> matters = new ArrayList<>();
+        ArrayList<Object> students = new ArrayList<>();
+        ArrayList<Object> classrooms = new ArrayList<>();
+        ArrayList<Object> teachers = new ArrayList<>();
+        ArrayList<Object> secretaries = new ArrayList<>();
+
+        file.readFiles(matters, students, classrooms, teachers, secretaries);
+
         Student student = null;
         String registry = null;
         String password = null;
         int aux = 0;
-        while (aux == 0){
-            System.out.println("Enter your register");
+        while (aux == 0) {
+            System.out.println("Enter your id");
             registry = scan.next();
-            int index = file.searchStudent(registry, students);
+            int index = file.searchObject(registry, students);
             if (index != -1) {
-                student = students.get(index);
+                student = (Student) students.get(index);
                 System.out.println("Enter your password");
                 password = scan.next();
                 if (password.equals(student.getPassword())) {
@@ -343,11 +354,11 @@ public class ManipulationMenu {
         optionsStudent(registry);
     }
 
-    public int mainMenuStudent(){
+    public int mainMenuStudent() {
         Scanner scan = new Scanner(System.in);
         int option = -1;
         while (option < 0 || option > 4) {
-            System.out.print( "Students menu:\n\t" +
+            System.out.print("Students menu:\n\t" +
                     "Select options for:\n\t\t" +
                     "[1] - Check your information\n\t\t" +
                     "[2] - Subscribe in a matter\n\t\t" +
@@ -358,54 +369,60 @@ public class ManipulationMenu {
         }
         return option;
     }
+
     public void optionsStudent(String registry) throws IOException {
         Scanner scan = new Scanner(System.in);
         ManipulationFile file = new ManipulationFile();
-        //read matters
-        ArrayList<Matter> matters = new ArrayList<>();
-        file.readMatterFile(matters);
-        //read students
-        ArrayList<Student> students = new ArrayList<>();
-        file.readStudentFile(matters,students);
-        //my profile
+
+        ArrayList<Object> matters = new ArrayList<>();
+        ArrayList<Object> students = new ArrayList<>();
+        ArrayList<Object> classrooms = new ArrayList<>();
+        ArrayList<Object> teachers = new ArrayList<>();
+        ArrayList<Object> secretaries = new ArrayList<>();
+
+        file.readFiles(matters, students, classrooms, teachers, secretaries);
+
+
         Student myProfile = null;
-        myProfile = students.get(file.searchStudent(registry,students));
+        myProfile = (Student) students.get(file.searchObject(registry, students));
         //call main menu
         int aux = 0;
         String matterId = null;
-        switch (mainMenuStudent()){
+        switch (mainMenuStudent()) {
             case 1:
                 System.out.println(myProfile);
                 optionsStudent(registry);
                 break;
             case 2:
-                while (aux == 0){
+                while (aux == 0) {
                     System.out.println("Insert matter id: ");
                     matterId = scan.next();
-                    if(file.searchMatter(matterId, matters) != -1){
+                    if (file.searchObject(matterId, matters) != -1) {
                         aux = 1;
                     } else {
                         System.out.println("Matter not found");
                     }
                 }
-                myProfile.addMatter(matters.get(file.searchMatter(matterId, matters)));
-                file.deleteStudent(registry,students);
-                file.writeStudent(myProfile);
+                myProfile.addMatter((Matter) matters.get(file.searchObject(matterId, matters)));
+                file.deleteObject(registry, students);
+                file.writeFile(myProfile);
                 optionsStudent(registry);
                 break;
             case 3:
-                while (aux == 0){
+                while (aux == 0) {
                     System.out.println("Insert matter id: ");
                     matterId = scan.next();
-                    if(file.searchMatter(matterId, matters) != -1){
+                    if (file.searchObject(matterId, matters) != -1) {
                         aux = 1;
                     } else {
                         System.out.println("Matter not found");
                     }
                 }
-                myProfile.deleteMatter(matters.get(file.searchMatter(matterId, matters)).getId());
-                file.deleteStudent(registry,students);
-                file.writeStudent(myProfile);
+                Matter matter = (Matter) matters.get(file.searchObject(matterId, matters));
+                myProfile.deleteMatter(matter.getId());
+                
+                file.deleteObject(registry, students);
+                file.writeFile(myProfile);
                 optionsStudent(registry);
                 break;
             default:
@@ -418,24 +435,25 @@ public class ManipulationMenu {
     public void loginTeachers() throws IOException {
         Scanner scan = new Scanner(System.in);
         ManipulationFile file = new ManipulationFile();
-        ArrayList<Matter> matters = new ArrayList<>();
-        file.readMatterFile(matters);
-        ArrayList<Student> students = new ArrayList<>();
-        file.readStudentFile(matters, students);
-        ArrayList<Classroom> classrooms = new ArrayList<>();
-        file.readClassroomFile(matters, students, classrooms);
-        ArrayList<Teacher> teachers = new ArrayList<>();
-        file.readTeacherFile(classrooms, teachers);
+
+        ArrayList<Object> matters = new ArrayList<>();
+        ArrayList<Object> students = new ArrayList<>();
+        ArrayList<Object> classrooms = new ArrayList<>();
+        ArrayList<Object> teachers = new ArrayList<>();
+        ArrayList<Object> secretaries = new ArrayList<>();
+
+        file.readFiles(matters, students, classrooms, teachers, secretaries);
+
         Teacher teacher = null;
         String registry = null;
         String password = null;
         int aux = 0;
-        while (aux == 0){
-            System.out.println("Enter your register");
+        while (aux == 0) {
+            System.out.println("Enter your id");
             registry = scan.next();
-            int index = file.searchTeacher(registry, teachers);
+            int index = file.searchObject(registry, teachers);
             if (index != -1) {
-                teacher = teachers.get(index);
+                teacher = (Teacher) teachers.get(index);
                 System.out.println("Enter your password");
                 password = scan.next();
                 if (password.equals(teacher.getPassword())) {
@@ -451,11 +469,11 @@ public class ManipulationMenu {
         optionsTeacher(registry);
     }
 
-    public int mainMenuTeacher(){
+    public int mainMenuTeacher() {
         Scanner scan = new Scanner(System.in);
         int option = -1;
         while (option < 0 || option > 4) {
-            System.out.print( "Teachers menu:\n\t" +
+            System.out.print("Teachers menu:\n\t" +
                     "Select options for:\n\t\t" +
                     "[1] - Check your information\n\t\t" +
                     "[2] - Subscribe in a classroom\n\t\t" +
@@ -466,55 +484,58 @@ public class ManipulationMenu {
         }
         return option;
     }
+
     public void optionsTeacher(String registry) throws IOException {
         Scanner scan = new Scanner(System.in);
         ManipulationFile file = new ManipulationFile();
-        ArrayList<Matter> matters = new ArrayList<>();
-        file.readMatterFile(matters);
-        ArrayList<Student> students = new ArrayList<>();
-        file.readStudentFile(matters, students);
-        ArrayList<Classroom> classrooms = new ArrayList<>();
-        file.readClassroomFile(matters, students, classrooms);
-        ArrayList<Teacher> teachers = new ArrayList<>();
-        file.readTeacherFile(classrooms, teachers);
+        ArrayList<Object> matters = new ArrayList<>();
+        ArrayList<Object> students = new ArrayList<>();
+        ArrayList<Object> classrooms = new ArrayList<>();
+        ArrayList<Object> teachers = new ArrayList<>();
+        ArrayList<Object> secretaries = new ArrayList<>();
+
+        file.readFiles(matters, students, classrooms, teachers, secretaries);
+
         Teacher myProfile = null;
-        myProfile = teachers.get(file.searchTeacher(registry,teachers));
+
+        myProfile = (Teacher) teachers.get(file.searchObject(registry, teachers));
         //call main menu
         int aux = 0;
         String classroomId = null;
-        switch (mainMenuTeacher()){
+        switch (mainMenuTeacher()) {
             case 1:
                 System.out.println(myProfile);
                 optionsTeacher(registry);
                 break;
             case 2:
-                while (aux == 0){
+                while (aux == 0) {
                     System.out.println("Insert matter id: ");
                     classroomId = scan.next();
-                    if(file.searchClassroom(classroomId, classrooms) != -1){
+                    if (file.searchObject(classroomId, classrooms) != -1) {
                         aux = 1;
                     } else {
                         System.out.println("Matter not found");
                     }
                 }
-                myProfile.addClassroom(classrooms.get(file.searchClassroom(classroomId, classrooms)));
-                file.deleteTeacher(registry,teachers);
-                file.writeTeacher(myProfile);
+                myProfile.addClassroom((Classroom) classrooms.get(file.searchObject(classroomId, classrooms)));
+                file.deleteObject(registry, teachers);
+                file.writeFile(myProfile);
                 optionsTeacher(registry);
                 break;
             case 3:
-                while (aux == 0){
+                while (aux == 0) {
                     System.out.println("Insert matter id: ");
                     classroomId = scan.next();
-                    if(file.searchClassroom(classroomId, classrooms) != -1){
+                    if (file.searchObject(classroomId, classrooms) != -1) {
                         aux = 1;
                     } else {
                         System.out.println("Matter not found");
                     }
                 }
-                myProfile.deleteClassroom(classrooms.get(file.searchClassroom(classroomId, classrooms)).getId());
-                file.deleteTeacher(registry,teachers);
-                file.writeTeacher(myProfile);
+                Classroom classroom = (Classroom) classrooms.get(file.searchObject(classroomId, classrooms));
+                myProfile.deleteClassroom(classroom.getId());
+                file.deleteObject(registry, teachers);
+                file.writeFile(myProfile);
                 optionsTeacher(registry);
                 break;
             default:

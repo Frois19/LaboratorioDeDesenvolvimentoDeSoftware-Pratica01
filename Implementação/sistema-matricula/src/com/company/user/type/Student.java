@@ -8,12 +8,12 @@ public class Student extends User {
 
     protected ArrayList<Matter> matters = new ArrayList();
 
-    public Student(String name, String email, String password, String registry) {
-        super(name, email, password, registry);
+    public Student(String name, String email, String password, String id) {
+        super(name, email, password, id);
     }
 
-    public Student(String name, String email, String password, String registry, String status) {
-        super(name, email, password, registry);
+    public Student(String name, String email, String password, String id, String status) {
+        super(name, email, password, id);
         setTextStatus(status);
     }
 
@@ -71,7 +71,7 @@ public class Student extends User {
     }
 
     public String textFile() {
-        return  "*" + getRegistry() + ",;" +
+        return  "*" + getId() + ",;" +
                 getName() + ",;" +
                 getEmail() + ",;" +
                 getPassword() + ",;" +
@@ -83,7 +83,7 @@ public class Student extends User {
     public String toString() {
         return "\nStudent Information:" +
                 "\n\t- Name: " + getName() +
-                "\n\t- Registry: " + getRegistry() +
+                "\n\t- Id: " + getId() +
                 "\n\t- E-mail:" + getEmail() +
                 "\n\t- Status: " + getStatus() +
                 listMatters() + "\n";

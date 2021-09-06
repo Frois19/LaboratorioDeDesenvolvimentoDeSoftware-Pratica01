@@ -5,14 +5,14 @@ public abstract class User {
     protected String name;
     protected String email;
     protected String password;
-    protected String registry;
+    protected String id;
     protected StatusUser status;
 
-    public User(String name, String email, String password, String registry) {
+    public User(String name, String email, String password, String id) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.registry = registry;
+        this.id = id;
         this.status = StatusUser.ACTIVE;
     }
 
@@ -40,12 +40,12 @@ public abstract class User {
         this.password = password;
     }
 
-    public String getRegistry() {
-        return registry;
+    public String getId() {
+        return id;
     }
 
-    public void setRegistry(String registry) {
-        this.registry = registry;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public StatusUser getStatus() {
@@ -82,7 +82,7 @@ public abstract class User {
     }
 
     public String textFile() {
-        return getRegistry() + ";" +
+        return getId() + ";" +
                 getName() + ";" +
                 getEmail() + ";" +
                 getPassword() + ";" +
@@ -93,7 +93,7 @@ public abstract class User {
     public String toString() {
         return "\nUser Information:" +
                 "\n\t- Name: " + getName() +
-                "\n\t- Registry: " + getRegistry() +
+                "\n\t- Id: " + getId() +
                 "\n\t- E-mail:" + getEmail() +
                 "\n\t- Status: " + getStatus()+ "\n";
     }

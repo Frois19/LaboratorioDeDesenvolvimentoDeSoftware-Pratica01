@@ -1,7 +1,6 @@
 package com.company.user.type;
 
 import com.company.classroom.Classroom;
-import com.company.matter.Matter;
 import com.company.user.User;
 
 import java.util.ArrayList;
@@ -10,12 +9,12 @@ public class Teacher extends User {
 
     protected ArrayList<Classroom> classrooms = new ArrayList();
 
-    public Teacher(String name, String email, String password, String registry) {
-        super(name, email, password, registry);
+    public Teacher(String name, String email, String password, String id) {
+        super(name, email, password, id);
     }
 
-    public Teacher(String name, String email, String password, String registry, String status) {
-        super(name, email, password, registry);
+    public Teacher(String name, String email, String password, String id, String status) {
+        super(name, email, password, id);
         setTextStatus(status);
     }
 
@@ -76,7 +75,7 @@ public class Teacher extends User {
     }
 
     public String textFile() {
-        return "*" + getRegistry() + ",;" +
+        return "*" + getId() + ",;" +
                 getName() + ",;" +
                 getEmail() + ",;" +
                 getPassword() + ",;" +
@@ -88,7 +87,7 @@ public class Teacher extends User {
     public String toString() {
         return "\nTeacher Information:" +
                 "\n\t- Name: " + getName() +
-                "\n\t- Registry: " + getRegistry() +
+                "\n\t- Id: " + getId() +
                 "\n\t- E-mail:" + getEmail() +
                 "\n\t- Status: " + getTextStatus() +
                 listClassrooms() + "\n";
