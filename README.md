@@ -46,14 +46,3 @@ Ao final da última sprint (Sprint 04), os alunos deverão apresentar o protóti
 - Alinhamento entre modelo (de classes e de arquitetura) e código;
 - Atualizações dos modelos conforme necessidade do projeto.
 
-### Processo de Desenvolvimento
-
-**Lab01S01:** Modelo de Análise: Diagrama de Caso de Uso referente ao sistema + Descrição em Histórias de Usuário em Markdown (.md), no README do Repositório, com arquivo enviado no Canvas. *(3 pontos)*
-
-**Lab01S02:** Projeto Estrutural: Diagrama de Classes referente ao sistema + Criação do Projeto Java, contendo: classes, atributos e métodos modelados *(4 pontos)*
-
-**Lab01S03:** TBD;
-
-**Lab01S04:** TBD;
-
-**Prazo final:** 29/08 | **Apresentação:** 30/08 | **Valor total:** 15 pontos | **Desconto de 0.5 pontos por dia de atraso**
